@@ -1,7 +1,7 @@
-package entity.button;
+package entity.image;
 
 public class WXImage {
-	String MediaId;
+	private String MediaId;
 
 	public WXImage() {
 	}

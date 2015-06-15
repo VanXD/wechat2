@@ -1,18 +1,14 @@
-package entity;
+package entity.outputmessage.basic;
 
 import java.util.Map;
 
-import entity.button.WXImage;
+import entity.InputMessageAbstract;
+import entity.image.WXImage;
+import entity.outputmessage.OutputMessageAbstract;
 
 public class ImageOutputMessage extends OutputMessageAbstract {
 
-	/**
-	 * 消息类型:文本消息
-	 */
 	private String MsgType = "image";
-	/**
-	 * 文本消息
-	 */
 	private WXImage Image;
 
 	@Override
@@ -23,6 +19,15 @@ public class ImageOutputMessage extends OutputMessageAbstract {
 		// setMediaId("sX-A3AylJ4DwYEfQLhFRSjq_FDddtW-OcbTAZpVsVJY");
 		setImage(new WXImage("sX-A3AylJ4DwYEfQLhFRSjq_FDddtW-OcbTAZpVsVJY"));
 	}
+	
+	@Override
+	public void inject(InputMessageAbstract ima, String ImageStr) {
+		setToUserName(ima.getFromUserName());
+		setFromUserName(ima.getToUserName());
+		setCreateTime(System.currentTimeMillis());
+		// setMediaId("sX-A3AylJ4DwYEfQLhFRSjq_FDddtW-OcbTAZpVsVJY");
+		setImage(new WXImage(ImageStr));
+	}
 
 	public WXImage getImage() {
 		return Image;
@@ -32,17 +37,9 @@ public class ImageOutputMessage extends OutputMessageAbstract {
 		Image = image;
 	}
 
-	/**
-	 * 创建一个新的 Output Message.并且MsgType的值为text.
-	 */
 	public ImageOutputMessage() {
 	}
 
-	/**
-	 * 获取 消息类型
-	 * 
-	 * @return 消息类型
-	 */
 	@Override
 	public String getMsgType() {
 		return MsgType;

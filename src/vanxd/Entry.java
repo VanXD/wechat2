@@ -19,7 +19,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import entity.InputMessage;
 import entity.InputMessageAbstract;
-import entity.OutputMessageAbstract;
+import entity.outputmessage.OutputMessageAbstract;
+import service.EventService;
 import tool.MessageFactory;
 import tool.MessageUtil;
 import tool.SignUtil;
@@ -53,11 +54,15 @@ public class Entry {
 
 		InputMessage im = initInputMessage(request);
 
+		//根据MsgType 生成对应的service
+		
+		
 		// 生成outputmessage
-		OutputMessageAbstract oma = MessageFactory.generateOutPutMessage(im
+		EventService es = MessageFactory.generateOutPutMessage(im
 				.getMsgType());
-		// 注入值
-		oma.inject(im);
+		// 调用相应的service factory
+		
+		OutputMessageAbstract oma = es.normal(im);
 		// 输出
 		writer.print(MessageUtil.objToXml(oma));
 	}

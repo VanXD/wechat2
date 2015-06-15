@@ -22,6 +22,7 @@
 <body>
 	<!-- start 新增永久素材 -->
 	<!-- https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=ACCESS_TOKEN -->
+	<p>新增永久素材</p>
 	<form action="https://api.weixin.qq.com/cgi-bin/material/add_material" method="POST" enctype ="multipart/form-data">
 		access_token:<input class="accessToken" type="text" name="access_token"></br>
 		type:<input type="text" name="type" value="image"></br>
@@ -29,6 +30,24 @@
 		<input type="submit" value="submit"></br>
 	</form>
 	<!-- 新增永久素材 end -->
+	
+	<!-- start 获取永久素材列表 -->
+	<!-- https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=ACCESS_TOKEN -->
+	<p>获取永久素材列表</p>
+	<form action="https://api.weixin.qq.com/cgi-bin/material/batchget_material" method="POST">
+		access_token:<input class="accessToken" type="text" name="access_token"></br>
+		type:<input type="text" name="type" value="image"></br>
+		offset:<input type="text" name="offset" value="0"></br>
+		count:<input type="text" name="count" value="10"></br>
+		<input type="submit" value="submit"></br>
+	</form>
+	<!-- 获取永久素材列表 end -->
+	<!-- start 上传图文消息素材 -->
+	<!-- https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token=ACCESS_TOKEN -->
+	<form action="https://api.weixin.qq.com/cgi-bin/media/uploadnews" method="POST">
+		
+	</form>
+	<!-- 上传图文消息素材 end -->
 	
 	<script>
 	//access_token global var
