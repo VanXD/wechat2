@@ -19,11 +19,13 @@ import entity.outputmessage.mass.ArticlesMassOutputMessage;
 import entity.outputmessage.mass.MsgTypeOutputMessage;
 import entity.outputmessage.mass.OpenIDOutputMessage;
 import entity.outputmessage.mass.type.ImageMassOutputMessage;
+import entity.outputmessage.mass.type.NewsMassOutputMessage;
 public class TestMain {
 	
+	//新增永久图文素材
 	@Test
 	public void addPernate(){
-		//新增永久图文素材
+		
 		ArticlesMassOutputMessage[] amom = new ArticlesMassOutputMessage[1];
 		amom[0] = new ArticlesMassOutputMessage();
 		amom[0].setAuthor("author");
@@ -34,10 +36,10 @@ public class TestMain {
 		amom[0].setThumb_media_id("waTpuoyFAIjJIFpidEbPbjaY5HZTLYBUml7wEvkt4kw");
 		ArticleSummary as = new ArticleSummary();
 		as.setArticles(amom);
-		JSONObject jsonObject = JSONObject.fromObject(as);
+		JSONObject jsonObject = JSONObject.fromObject(as); 
 		System.out.println(jsonObject);
 
-		String url = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token=";
+		String url = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=";
 
 		String accessToken = url + MessageUtil.getAccess_token();
 		try {
@@ -49,19 +51,19 @@ public class TestMain {
 			e.printStackTrace();
 		}
 	}
-	
+	//群发图文消息
 	@Test
-	public static void massMessage(){
-		//群发图文消息
+	public void massMessage(){
+		
 //		https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=ACCESS_TOKEN
 		String[] touser = new String[2];
 		touser[0] = "oJWm_vrtWITI4VCtv_slja8mvzhU";
 		touser[1] = "oJWm_vl3UHq6-AidG0qQV3RgsJrA";
 		
-		ImageMassOutputMessage openIDOutputMessage = new ImageMassOutputMessage();
+		NewsMassOutputMessage openIDOutputMessage = new NewsMassOutputMessage(); 
 		MsgTypeOutputMessage mtom = new MsgTypeOutputMessage();
-		mtom.setMedia_id("waTpuoyFAIjJIFpidEbPbjaY5HZTLYBUml7wEvkt4kw");
-		openIDOutputMessage.setImage(mtom);
+		mtom.setMedia_id("5yCPEid4tiYYD0Gq_gso_RcHsJbto0OgCExb7c5WFEY");
+		openIDOutputMessage.setMpnews(mtom);
 		openIDOutputMessage.setTouser(touser);
 		JSONObject jsonObject = JSONObject.fromObject(openIDOutputMessage);
 		
@@ -78,6 +80,7 @@ public class TestMain {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	public static void main(String[] args) {
 		InputMessage im = new InputMessage();

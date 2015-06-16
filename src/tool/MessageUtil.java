@@ -32,7 +32,11 @@ public class MessageUtil {
 	public static final String appsecret = "bf3efce70d4a2e196dcc9b6ef0f478b6";
 	public static final String accessTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
 			+ appID + "&secret=" + appsecret;
-
+	
+	private static String lastAccessToken;
+	//毫秒 2个小时：7200000
+	private static long lastATTime = 0;
+	private static long ATIntervalRequestTime = 7200000;
 	public static <T> String objToXml(T t) {
 		XStream xml = new XStream();
 		xml.alias("xml", t.getClass());
@@ -40,10 +44,14 @@ public class MessageUtil {
 	}
 
 	public static String getAccess_token() {
-
+		
+		//如果超过间隔AT使用时间
+		if(System.currentTimeMillis() - lastATTime < ATIntervalRequestTime)
+			return lastAccessToken;
+		
 		String url = accessTokenUrl;
-
 		String accessToken = null;
+		
 		try {
 			HttpURLConnection http = HttpTools.initHttp(accessTokenUrl, "GET");
 			http.connect();
@@ -57,6 +65,8 @@ public class MessageUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		lastAccessToken = accessToken;
+		lastATTime = System.currentTimeMillis();
 		return accessToken;
 	}
 
@@ -77,19 +87,9 @@ public class MessageUtil {
 		String action = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token="
 				+ access_token;
 		try {
-			URL url = new URL(action);
 			HttpURLConnection http = HttpTools.initHttp(action, "POST");
 			http.connect();
-			OutputStream os = http.getOutputStream();
-			os.write(menu.getBytes("UTF-8"));// 传入参数
-			os.flush();
-			os.close();
-
-			InputStream is = http.getInputStream();
-			int size = is.available();
-			byte[] jsonBytes = new byte[size];
-			is.read(jsonBytes);
-			String message = new String(jsonBytes, "UTF-8");
+			String message = HttpTools.getResult(http);
 			return "返回信息" + message;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
