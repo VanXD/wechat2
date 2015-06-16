@@ -49,6 +49,26 @@
 	</form>
 	<!-- 上传图文消息素材 end -->
 	
+	<!-- start 获取永久素材 -->
+	<p>获取永久素材</p>
+	<form action="https://api.weixin.qq.com/cgi-bin/material/get_material" method="POST">
+		access_token:<input class="accessToken" type="text" name="access_token"></br>
+		media_id:<input type="text" name="media_id"></br>
+		<input type="submit" value="submit"></br>
+	</form>
+	<!-- 获取永久素材 end -->
+	
+	<!-- start 获取用户列表 -->
+	<!-- https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID -->
+	<form action="https://api.weixin.qq.com/cgi-bin/user/get" method="get">
+		access_token:<input class="accessToken" type="text" name="access_token"></br>
+		next_openid:<input type="text" name="next_openid"></br>
+		<input type="submit" value="submit">
+	</form>
+	<!-- 获取用户列表 end -->
+	
+	
+	
 	<script>
 	//access_token global var
 	var access_token = getAccessToken();

@@ -45,14 +45,10 @@ public class MessageUtil {
 
 		String accessToken = null;
 		try {
-			HttpURLConnection http = initHttp(accessTokenUrl, "GET");
+			HttpURLConnection http = HttpTools.initHttp(accessTokenUrl, "GET");
 			http.connect();
 
-			InputStream is = http.getInputStream();
-			int size = is.available();
-			byte[] jsonBytes = new byte[size];
-			is.read(jsonBytes);
-			String message = new String(jsonBytes, "UTF-8");
+			String message = HttpTools.getResult(http);
 
 			JSONObject demoJson = JSONObject.fromObject(message);
 			accessToken = demoJson.getString("access_token");
@@ -82,7 +78,7 @@ public class MessageUtil {
 				+ access_token;
 		try {
 			URL url = new URL(action);
-			HttpURLConnection http = initHttp(action, "POST");
+			HttpURLConnection http = HttpTools.initHttp(action, "POST");
 			http.connect();
 			OutputStream os = http.getOutputStream();
 			os.write(menu.getBytes("UTF-8"));// 传入参数
@@ -160,17 +156,9 @@ public class MessageUtil {
 		String action = "https://api.weixin.qq.com/cgi-bin/menu/delete?access_token="
 				+ access_token;
 		try {
-			HttpURLConnection http = initHttp(action, "GET");
+			HttpURLConnection http = HttpTools.initHttp(action, "GET");
 			http.connect();
-			OutputStream os = http.getOutputStream();
-			os.flush();
-			os.close();
-
-			InputStream is = http.getInputStream();
-			int size = is.available();
-			byte[] jsonBytes = new byte[size];
-			is.read(jsonBytes);
-			String message = new String(jsonBytes, "UTF-8");
+			String message = HttpTools.getResult(http);
 			return "deleteMenu返回信息:" + message;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -180,31 +168,4 @@ public class MessageUtil {
 		return "deleteMenu 失败";
 	}
 
-	private static HttpURLConnection initHttp(String action, String method) {
-		URL url;
-		HttpURLConnection http = null;
-		try {
-			url = new URL(action);
-			http = (HttpURLConnection) url.openConnection();
-
-			http.setRequestMethod(method);
-			http.setRequestProperty("Content-Type",
-					"application/x-www-form-urlencoded");
-			http.setDoOutput(true);
-			http.setDoInput(true);
-			System.setProperty("sun.net.client.defaultConnectTimeout", "30000");// 连接超时30秒
-			System.setProperty("sun.net.client.defaultReadTimeout", "30000"); // 读取超时30秒
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return http;
-
-	}
 }
