@@ -7,9 +7,9 @@ import org.junit.Test;
 
 import net.sf.json.JSONObject;
 import service.AbstractHandler;
-import service.AbstractHandlerChain;
 import service.EventService;
-import service.SimpleHandlerChain;
+import service.chain.AbstractNormalHandlerChain;
+import service.chain.SimpleHandlerChain;
 import util.HttpTools;
 import util.MessageFactory;
 import util.MessageUtil;
@@ -86,31 +86,9 @@ public class TestMain {
 		
 	@Test
 	public void textSimpleChianHandler(){
-		AbstractHandlerChain simpleHandlerChain = new SimpleHandlerChain();
-		
-		im.setCreateTime(12321L);
-		im.setMsgType("video");
-		im.setEvent("subscribe");
-		im.setFromUserName("fromusername");
-		im.setToUserName("tousername");
-		simpleHandlerChain.process(im);
-		
-	}
-	
-	public static void main(String[] args) {
-		InputMessage im = new InputMessage();
-		im.setCreateTime(12321L);
+		AbstractNormalHandlerChain simpleHandlerChain = new SimpleHandlerChain();
 		im.setMsgType("event");
 		im.setEvent("subscribe");
-		im.setFromUserName("fromusername");
-		im.setToUserName("tousername");
-
-		// EventService es = MessageFactory.generateOutPutMessage(im
-		// .getMsgType());
-		// 调用相应的service factory
-
-		// OutputMessageAbstract oma = es.normal(im);
-		// 输出
-		// System.out.println(MessageUtil.objToXml(oma));
+		simpleHandlerChain.process(im);
 	}
 }

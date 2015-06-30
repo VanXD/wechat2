@@ -1,4 +1,4 @@
-package service;
+package service.chain;
 
 import entity.InputMessage;
 
@@ -9,7 +9,7 @@ import entity.InputMessage;
  *
  */
 
-public class SimpleHandlerChain extends AbstractHandlerChain {
+public class SimpleHandlerChain extends AbstractNormalHandlerChain {
 	
 	/**
 	 * 在构造器中链接handler
@@ -23,13 +23,7 @@ public class SimpleHandlerChain extends AbstractHandlerChain {
 		eventHandler.setNextHandler(locationHandler);
 		locationHandler.setNextHandler(shortVideoHandler);
 		shortVideoHandler.setNextHandler(linkHandler);
-		linkHandler.setNextHandler(shortVideoHandler);
-		shortVideoHandler.setNextHandler(videoHandler);
-	}
-
-	@Override
-	public void process(InputMessage im) {
-		entryHandler.handle(im);
+		linkHandler.setNextHandler(videoHandler);
 	}
 
 }
