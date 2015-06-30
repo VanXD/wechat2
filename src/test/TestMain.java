@@ -6,10 +6,13 @@ import java.net.HttpURLConnection;
 import org.junit.Test;
 
 import net.sf.json.JSONObject;
+import service.AbstractHandler;
+import service.AbstractHandlerChain;
 import service.EventService;
-import tool.HttpTools;
-import tool.MessageFactory;
-import tool.MessageUtil;
+import service.SimpleHandlerChain;
+import util.HttpTools;
+import util.MessageFactory;
+import util.MessageUtil;
 import entity.InputMessage;
 import entity.article.WXArticles;
 import entity.article.WXItem;
@@ -21,7 +24,7 @@ import entity.outputmessage.mass.OpenIDOutputMessage;
 import entity.outputmessage.mass.type.ImageMassOutputMessage;
 import entity.outputmessage.mass.type.NewsMassOutputMessage;
 public class TestMain {
-	
+	InputMessage im = new InputMessage();
 	//新增永久图文素材
 	@Test
 	public void addPernate(){
@@ -80,7 +83,19 @@ public class TestMain {
 			e.printStackTrace();
 		}
 	}
-	
+		
+	@Test
+	public void textSimpleChianHandler(){
+		AbstractHandlerChain simpleHandlerChain = new SimpleHandlerChain();
+		
+		im.setCreateTime(12321L);
+		im.setMsgType("video");
+		im.setEvent("subscribe");
+		im.setFromUserName("fromusername");
+		im.setToUserName("tousername");
+		simpleHandlerChain.process(im);
+		
+	}
 	
 	public static void main(String[] args) {
 		InputMessage im = new InputMessage();

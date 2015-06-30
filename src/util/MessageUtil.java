@@ -1,42 +1,27 @@
-package tool;
+package util;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
-import net.sf.json.groovy.JsonGroovyBuilder;
-
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
 import com.thoughtworks.xstream.XStream;
 
 import entity.button.Button;
 import entity.button.ButtonSummary;
-import entity.button.Button;
 
 public class MessageUtil {
 	public static final String appID = "wxc1ca2ea6a518621b";
 	public static final String appsecret = "bf3efce70d4a2e196dcc9b6ef0f478b6";
 	public static final String accessTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid="
 			+ appID + "&secret=" + appsecret;
-	
+
 	private static String lastAccessToken;
-	//毫秒 2个小时：7200000
+	// 毫秒 2个小时：7200000
 	private static long lastATTime = 0;
 	private static long ATIntervalRequestTime = 7200000;
+
 	public static <T> String objToXml(T t) {
 		XStream xml = new XStream();
 		xml.alias("xml", t.getClass());
@@ -44,14 +29,13 @@ public class MessageUtil {
 	}
 
 	public static String getAccess_token() {
-		
-		//如果超过间隔AT使用时间
-		if(System.currentTimeMillis() - lastATTime < ATIntervalRequestTime)
+
+		// 如果超过间隔AT使用时间
+		if (System.currentTimeMillis() - lastATTime < ATIntervalRequestTime)
 			return lastAccessToken;
-		
-		String url = accessTokenUrl;
+
 		String accessToken = null;
-		
+
 		try {
 			HttpURLConnection http = HttpTools.initHttp(accessTokenUrl, "GET");
 			http.connect();

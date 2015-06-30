@@ -1,12 +1,12 @@
 package entity;
 
-import tool.MessageUtil;
+import util.MessageUtil;
 
 public abstract class InputMessageAbstract {
 	private String ToUserName;
 	private String FromUserName;
 	private Long CreateTime;
-	private String MsgType = "text";
+	private String MsgType;
 	private Long MsgId;
 	// 文本消息
 	private String Content;

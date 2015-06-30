@@ -21,9 +21,9 @@ import entity.InputMessage;
 import entity.InputMessageAbstract;
 import entity.outputmessage.OutputMessageAbstract;
 import service.EventService;
-import tool.MessageFactory;
-import tool.MessageUtil;
-import tool.SignUtil;
+import util.MessageFactory;
+import util.MessageUtil;
+import util.SignUtil;
 
 @Controller
 public class Entry {
@@ -55,7 +55,6 @@ public class Entry {
 		InputMessage im = initInputMessage(request);
 
 		//根据MsgType 生成对应的service
-		
 		
 		// 生成outputmessage
 		EventService es = MessageFactory.generateOutPutMessage(im
