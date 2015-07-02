@@ -1,17 +1,26 @@
 package service.event;
 
 import entity.InputMessage;
+import entity.InputMessageAbstract;
+import entity.outputmessage.OutputMessageAbstract;
+import entity.outputmessage.basic.TextOutputMessage;
 import service.AbstractHandler;
 
 public class ViewHandler extends AbstractHandler {
 
 	@Override
-	public void handle(InputMessage im) {
-		if(im.getEvent().equals("VIEW")){
-			System.out.println("VIEW handler~~");
+	public OutputMessageAbstract handle(InputMessageAbstract im) {
+		if (im.getEvent().equals("VIEW")) {
+			System.out.println("ViewHandler handler~~");
+			oma = new TextOutputMessage("ViewHandler handler~~~");
+			oma.inject(im);
+			return oma;
 		}
-		if(nextHandler != null)
-			nextHandler.handle(im);
+		if (nextHandler != null)
+			return nextHandler.handle(im);
+		else {
+			return null;
+		}
 	}
 
 }

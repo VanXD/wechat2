@@ -15,7 +15,7 @@ public class TextOutputMessage extends OutputMessageAbstract {
 		setToUserName(ima.getFromUserName());
 		setFromUserName(ima.getToUserName());
 		setCreateTime(System.currentTimeMillis());
-		setContent(ima.getContent() + "别逗啦～");
+		setContent(Content);
 	}
 
 	public TextOutputMessage() {

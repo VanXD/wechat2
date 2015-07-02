@@ -1,16 +1,25 @@
 package service;
 
 import entity.InputMessage;
+import entity.InputMessageAbstract;
+import entity.outputmessage.OutputMessageAbstract;
+import entity.outputmessage.basic.TextOutputMessage;
 
 public class LinkHandler extends AbstractHandler {
 
 	@Override
-	public void handle(InputMessage im) {
-		if(im.getMsgType().equals("link")){
-			System.out.println("link handler~~");
+	public OutputMessageAbstract handle(InputMessageAbstract im) {
+		if (im.getMsgType().equals("link")) {
+			System.out.println("LinkHandler handler~~");
+			oma = new TextOutputMessage("LinkHandler handler~~~");
+			oma.inject(im);
+			return oma;
 		}
-		if(nextHandler != null)
-			nextHandler.handle(im);
+		if (nextHandler != null)
+			return nextHandler.handle(im);
+		else {
+			return null;
+		}
 	}
 
 }

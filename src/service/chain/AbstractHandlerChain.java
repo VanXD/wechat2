@@ -2,16 +2,20 @@ package service.chain;
 
 import service.AbstractHandler;
 import entity.InputMessage;
+import entity.InputMessageAbstract;
+import entity.outputmessage.OutputMessageAbstract;
 
 public abstract class AbstractHandlerChain {
 	// 链首handler
 	protected AbstractHandler entryHandler;
-
+	
+	protected OutputMessageAbstract oma;
 	/**
 	 * 调用链首handler
 	 */
-	public void process(InputMessage im) {
-		entryHandler.handle(im);
+	public OutputMessageAbstract process(InputMessageAbstract im) {
+		oma = entryHandler.handle(im);
+		return oma;
 	}
 
 	public AbstractHandler getEntryHandler() {
@@ -24,5 +28,9 @@ public abstract class AbstractHandlerChain {
 	 */
 	protected void setEntryHandler(AbstractHandler entryHandler) {
 		this.entryHandler = entryHandler;
+	}
+
+	public OutputMessageAbstract getOma() {
+		return oma;
 	}
 }

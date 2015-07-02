@@ -21,6 +21,8 @@ import entity.InputMessage;
 import entity.InputMessageAbstract;
 import entity.outputmessage.OutputMessageAbstract;
 import service.EventService;
+import service.chain.AbstractNormalHandlerChain;
+import service.chain.SimpleHandlerChain;
 import util.MessageFactory;
 import util.MessageUtil;
 import util.SignUtil;
@@ -54,14 +56,11 @@ public class Entry {
 
 		InputMessage im = initInputMessage(request);
 
-		//根据MsgType 生成对应的service
+		//创建简单chain
+		AbstractNormalHandlerChain simpleHandlerChain = new SimpleHandlerChain();
+		// 得到chain的最后结果
+		OutputMessageAbstract oma = simpleHandlerChain.process(im);
 		
-		// 生成outputmessage
-		EventService es = MessageFactory.generateOutPutMessage(im
-				.getMsgType());
-		// 调用相应的service factory
-		
-		OutputMessageAbstract oma = es.normal(im);
 		// 输出
 		writer.print(MessageUtil.objToXml(oma));
 	}

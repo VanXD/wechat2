@@ -17,6 +17,7 @@ import entity.InputMessage;
 import entity.article.WXArticles;
 import entity.article.WXItem;
 import entity.outputmessage.OutputMessageAbstract;
+import entity.outputmessage.basic.ImageOutputMessage;
 import entity.outputmessage.mass.ArticleSummary;
 import entity.outputmessage.mass.ArticlesMassOutputMessage;
 import entity.outputmessage.mass.MsgTypeOutputMessage;
@@ -87,8 +88,11 @@ public class TestMain {
 	@Test
 	public void textSimpleChianHandler(){
 		AbstractNormalHandlerChain simpleHandlerChain = new SimpleHandlerChain();
+		OutputMessageAbstract oma = null;
 		im.setMsgType("event");
 		im.setEvent("subscribe");
-		simpleHandlerChain.process(im);
+		oma = simpleHandlerChain.process(im);
+		System.out.println(oma);
+		System.out.println(MessageUtil.objToXml(oma));
 	}
 }
