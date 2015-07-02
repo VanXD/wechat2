@@ -1,5 +1,6 @@
-package service;
+package service.common;
 
+import service.AbstractHandler;
 import entity.InputMessage;
 import entity.InputMessageAbstract;
 import entity.outputmessage.OutputMessageAbstract;

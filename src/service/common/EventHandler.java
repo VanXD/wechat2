@@ -1,5 +1,6 @@
-package service;
+package service.common;
 
+import service.AbstractHandler;
 import service.chain.AbstractEventHandlerChain;
 import service.chain.SimpleEventHandlerChain;
 import entity.InputMessage;

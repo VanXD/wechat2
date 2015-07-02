@@ -20,10 +20,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import entity.InputMessage;
 import entity.InputMessageAbstract;
 import entity.outputmessage.OutputMessageAbstract;
-import service.EventService;
 import service.chain.AbstractNormalHandlerChain;
 import service.chain.SimpleHandlerChain;
-import util.MessageFactory;
 import util.MessageUtil;
 import util.SignUtil;
 

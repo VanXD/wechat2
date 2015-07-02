@@ -7,11 +7,9 @@ import org.junit.Test;
 
 import net.sf.json.JSONObject;
 import service.AbstractHandler;
-import service.EventService;
 import service.chain.AbstractNormalHandlerChain;
 import service.chain.SimpleHandlerChain;
 import util.HttpTools;
-import util.MessageFactory;
 import util.MessageUtil;
 import entity.InputMessage;
 import entity.article.WXArticles;

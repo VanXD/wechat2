@@ -1,17 +1,18 @@
-package service;
+package service.common;
 
+import service.AbstractHandler;
 import entity.InputMessage;
 import entity.InputMessageAbstract;
 import entity.outputmessage.OutputMessageAbstract;
 import entity.outputmessage.basic.TextOutputMessage;
 
-public class LinkHandler extends AbstractHandler {
+public class ShortVideoHandler extends AbstractHandler {
 
 	@Override
 	public OutputMessageAbstract handle(InputMessageAbstract im) {
-		if (im.getMsgType().equals("link")) {
-			System.out.println("LinkHandler handler~~");
-			oma = new TextOutputMessage("LinkHandler handler~~~");
+		if (im.getMsgType().equals("shortvideo")) {
+			System.out.println("ShortVideoHandler handler~~");
+			oma = new TextOutputMessage("ShortVideoHandler handler~~~");
 			oma.inject(im);
 			return oma;
 		}

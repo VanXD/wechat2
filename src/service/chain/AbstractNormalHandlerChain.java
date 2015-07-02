@@ -1,7 +1,14 @@
 package service.chain;
 
 import service.*;
-import entity.InputMessage;
+import service.common.EventHandler;
+import service.common.ImageHandler;
+import service.common.LinkHandler;
+import service.common.LocationHandler;
+import service.common.ShortVideoHandler;
+import service.common.TextHandler;
+import service.common.VideoHandler;
+import service.common.VoiceHandler;
 
 public abstract class AbstractNormalHandlerChain extends AbstractHandlerChain {
 	protected AbstractHandler eventHandler = new EventHandler();

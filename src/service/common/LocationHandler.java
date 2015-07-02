@@ -1,17 +1,18 @@
-package service;
+package service.common;
 
+import service.AbstractHandler;
 import entity.InputMessage;
 import entity.InputMessageAbstract;
 import entity.outputmessage.OutputMessageAbstract;
 import entity.outputmessage.basic.TextOutputMessage;
 
-public class ShortVideoHandler extends AbstractHandler {
+public class LocationHandler extends AbstractHandler {
 
 	@Override
 	public OutputMessageAbstract handle(InputMessageAbstract im) {
-		if (im.getMsgType().equals("shortvideo")) {
-			System.out.println("ShortVideoHandler handler~~");
-			oma = new TextOutputMessage("ShortVideoHandler handler~~~");
+		if (im.getMsgType().equals("location")) {
+			System.out.println("LocationHandler handler~~");
+			oma = new TextOutputMessage("LocationHandler handler~~~");
 			oma.inject(im);
 			return oma;
 		}
