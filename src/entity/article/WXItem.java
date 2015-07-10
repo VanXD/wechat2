@@ -6,9 +6,6 @@ public class WXItem {
 	private String PicUrl;
 	private String Url;
 
-	public WXItem() {
-	}
-
 	public WXItem(String title, String url) {
 		Title = title;
 		Url = url;

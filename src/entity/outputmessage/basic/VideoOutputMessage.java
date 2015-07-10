@@ -3,14 +3,13 @@ package entity.outputmessage.basic;
 import java.util.Map;
 
 import entity.InputMessageAbstract;
-import entity.image.WXImage;
+import entity.WXMedia;
 import entity.outputmessage.OutputMessageAbstract;
-import entity.video.WXVideo;
 
 public class VideoOutputMessage extends OutputMessageAbstract {
 
 	private String MsgType = "video";
-	private WXVideo Video;
+	private WXMedia Video;
 
 	@Override
 	public void inject(InputMessageAbstract ima) {
@@ -25,7 +24,7 @@ public class VideoOutputMessage extends OutputMessageAbstract {
 		setToUserName(ima.getFromUserName());
 		setFromUserName(ima.getToUserName());
 		setCreateTime(System.currentTimeMillis());
-		setVideo(new WXVideo(ImageStr, Title, Description));
+		setVideo(new WXMedia(ImageStr, Title, Description));
 	}
 
 	@Override
@@ -33,14 +32,14 @@ public class VideoOutputMessage extends OutputMessageAbstract {
 		setToUserName(ima.getFromUserName());
 		setFromUserName(ima.getToUserName());
 		setCreateTime(System.currentTimeMillis());
-		setVideo(new WXVideo(ImageStr));
+		setVideo(new WXMedia(ImageStr));
 	}
 
-	public WXVideo getVideo() {
+	public WXMedia getVideo() {
 		return Video;
 	}
 
-	public void setVideo(WXVideo video) {
+	public void setVideo(WXMedia video) {
 		Video = video;
 	}
 

@@ -3,7 +3,7 @@ package entity.outputmessage.basic;
 import java.util.Map;
 
 import entity.InputMessageAbstract;
-import entity.image.WXImage;
+import entity.WXMedia;
 import entity.music.WXMusic;
 import entity.outputmessage.OutputMessageAbstract;
 

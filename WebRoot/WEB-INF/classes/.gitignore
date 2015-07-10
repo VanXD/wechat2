@@ -1,8 +1,6 @@
-/tool/
-/entity/
-/interfaces/
 /service/
+/util/
 /test/
 /vanxd/
-/util/
-/event/
+/interfaces/
+/entity/

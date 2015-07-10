@@ -1,4 +1,4 @@
-package util;
+package util.ienum;
 
 public enum ButtonTypeEnum {
 	SCANCODE_WAITMSG("scancode_waitmsg"),

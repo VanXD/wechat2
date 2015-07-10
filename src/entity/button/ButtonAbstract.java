@@ -1,12 +1,12 @@
 package entity.button;
 
-public class ButtonAbstract {
-	private String name;
-	private ButtonAbstract[] sub_button;
-	private String type;
-	private String key;
-	private String url;
-	private String media_id;
+public abstract class ButtonAbstract {
+	protected String name;
+	protected ButtonAbstract[] sub_button;
+	protected String type;
+	protected String key;
+	protected String url;
+	protected String media_id;
 
 	public String getName() {
 		return name;

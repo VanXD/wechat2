@@ -3,13 +3,13 @@ package entity.outputmessage.basic;
 import java.util.Map;
 
 import entity.InputMessageAbstract;
-import entity.image.WXImage;
+import entity.WXMedia;
 import entity.outputmessage.OutputMessageAbstract;
 
 public class ImageOutputMessage extends OutputMessageAbstract {
 
 	private String MsgType = "image";
-	private WXImage Image;
+	private WXMedia Image;
 
 	@Override
 	public void inject(InputMessageAbstract ima) {
@@ -17,7 +17,7 @@ public class ImageOutputMessage extends OutputMessageAbstract {
 		setFromUserName(ima.getToUserName());
 		setCreateTime(System.currentTimeMillis());
 		// setMediaId("sX-A3AylJ4DwYEfQLhFRSjq_FDddtW-OcbTAZpVsVJY");
-		setImage(new WXImage("sX-A3AylJ4DwYEfQLhFRSjq_FDddtW-OcbTAZpVsVJY"));
+		setImage(Image);
 	}
 	
 	@Override
@@ -26,14 +26,14 @@ public class ImageOutputMessage extends OutputMessageAbstract {
 		setFromUserName(ima.getToUserName());
 		setCreateTime(System.currentTimeMillis());
 		// setMediaId("sX-A3AylJ4DwYEfQLhFRSjq_FDddtW-OcbTAZpVsVJY");
-		setImage(new WXImage(ImageStr));
+		setImage(new WXMedia(ImageStr));
 	}
 
-	public WXImage getImage() {
+	public WXMedia getImage() {
 		return Image;
 	}
 
-	public void setImage(WXImage image) {
+	public void setImage(WXMedia image) {
 		Image = image;
 	}
 
@@ -48,5 +48,14 @@ public class ImageOutputMessage extends OutputMessageAbstract {
 	public void setMsgType(String msgType) {
 		MsgType = msgType;
 	}
+
+	/**
+	 * @param image
+	 */
+	public ImageOutputMessage(WXMedia image) {
+		super();
+		Image = image;
+	}
+	
 
 }

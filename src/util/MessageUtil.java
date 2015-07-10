@@ -1,5 +1,6 @@
 package util;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -8,6 +9,7 @@ import net.sf.json.JSONObject;
 
 import com.thoughtworks.xstream.XStream;
 
+import entity.article.WXItem;
 import entity.button.Button;
 import entity.button.ButtonSummary;
 
@@ -25,11 +27,11 @@ public class MessageUtil {
 	public static <T> String objToXml(T t) {
 		XStream xml = new XStream();
 		xml.alias("xml", t.getClass());
+		xml.alias("item", WXItem.class);
 		return xml.toXML(t);
 	}
 
 	public static String getAccess_token() {
-
 		// 如果超过间隔AT使用时间
 		if (System.currentTimeMillis() - lastATTime < ATIntervalRequestTime)
 			return lastAccessToken;
@@ -64,75 +66,12 @@ public class MessageUtil {
 	 * @return int 返回类型
 	 * @throws
 	 */
-	public static String createMenu(String menu) {
-		System.out.println(menu);
-		String access_token = getAccess_token();
-
-		String action = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token="
-				+ access_token;
-		try {
-			HttpURLConnection http = HttpTools.initHttp(action, "POST");
-			http.connect();
-			String message = HttpTools.getResult(http);
-			return "返回信息" + message;
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "createMenu 失败";
-	}
+	
 
 	public static void main(String[] args) {
-		System.out.println(createMenu(createMenuiii()));
-		// System.out.println(deleteMenu());
-		// System.out.println(getAccess_token());
+//		System.out.println(createMenu());
+//		 System.out.println(deleteMenu());
 
-	}
-
-	public static String createMenuiii() {
-		ButtonSummary bs = new ButtonSummary();
-		Button[] button = new Button[3];
-
-		button[0] = new Button();
-		button[0].setName("扫码");
-		Button[] subButton = new Button[2];
-		subButton[0] = new Button();
-		subButton[0].setType(ButtonTypeEnum.SCANCODE_WAITMSG.toString());
-		subButton[0].setName("扫码带提示");
-		subButton[0].setKey("rselfmenu_0_0");
-		subButton[1] = new Button();
-		subButton[1].setType(ButtonTypeEnum.SCANCODE_PUSH.toString());
-		subButton[1].setName("扫码推事件");
-		subButton[1].setKey("rselfmenu_0_1");
-		button[0].setSub_button(subButton);
-
-		button[1] = new Button();
-		button[1].setName("发图吧");
-		subButton = new Button[3];
-		subButton[0] = new Button();
-		subButton[0].setType(ButtonTypeEnum.PIC_SYSPHOTO.toString());
-		subButton[0].setName("系统拍照发图");
-		subButton[0].setKey("rselfmenu_1_0");
-		subButton[1] = new Button();
-		subButton[1].setType(ButtonTypeEnum.PIC_PHOTO_OR_ALBUM.toString());
-		subButton[1].setName("拍照或者相册发图");
-		subButton[1].setKey("rselfmenu_1_1");
-		subButton[2] = new Button();
-		subButton[2].setType(ButtonTypeEnum.PIC_WEIXIN.toString());
-		subButton[2].setName("微信相册发图");
-		subButton[2].setKey("rselfmenu_1_2");
-		button[1].setSub_button(subButton);
-
-		button[2] = new Button();
-		button[2].setName("发送位置");
-		button[2].setType(ButtonTypeEnum.LOCATION_SELECT.toString());
-		button[2].setKey("rselfmenu_2_0");
-
-		bs.setButton(button);
-
-		JSONObject jsonObject = JSONObject.fromObject(bs);
-		return jsonObject.toString();
 	}
 
 	public static String deleteMenu() {
@@ -143,7 +82,7 @@ public class MessageUtil {
 			HttpURLConnection http = HttpTools.initHttp(action, "GET");
 			http.connect();
 			String message = HttpTools.getResult(http);
-			return "deleteMenu返回信息:" + message;
+			return message;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

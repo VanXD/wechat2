@@ -3,14 +3,13 @@ package entity.outputmessage.basic;
 import java.util.Map;
 
 import entity.InputMessageAbstract;
-import entity.image.WXImage;
+import entity.WXMedia;
 import entity.outputmessage.OutputMessageAbstract;
-import entity.voice.WXVoice;
 
 public class VoiceOutputMessage extends OutputMessageAbstract {
 
 	private String MsgType = "voice";
-	private WXVoice Voice;
+	private WXMedia Voice;
 
 	public VoiceOutputMessage() {
 	}
@@ -36,17 +35,15 @@ public class VoiceOutputMessage extends OutputMessageAbstract {
 		setToUserName(ima.getFromUserName());
 		setFromUserName(ima.getToUserName());
 		setCreateTime(System.currentTimeMillis());
-		Voice = new WXVoice(MediaIdStr);
+		Voice = new WXMedia(MediaIdStr);
 	}
 
-	public WXVoice getVoice() {
+	public WXMedia getVoice() {
 		return Voice;
 	}
 
-	public void setVoice(WXVoice voice) {
+	public void setVoice(WXMedia voice) {
 		Voice = voice;
 	}
 
-
-	
 }

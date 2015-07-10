@@ -19,7 +19,6 @@ public class HttpTools {
 
 			url = new URL(action);
 			http = (HttpURLConnection) url.openConnection();
-
 			http.setRequestMethod(method);
 			http.setRequestProperty("Content-Type",
 					"application/x-www-form-urlencoded");
@@ -61,7 +60,7 @@ public class HttpTools {
 	}
 
 	public static void jsonData(HttpURLConnection http, JSONObject jsonObject) {
-
+		System.out.println(jsonObject);
 		try {
 			DataOutputStream out = new DataOutputStream(http.getOutputStream());
 			out.writeBytes(jsonObject.toString());
@@ -69,7 +68,6 @@ public class HttpTools {
 			out.flush();
 			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

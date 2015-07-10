@@ -1,27 +1,25 @@
 package entity.outputmessage.basic;
 
-import java.util.Map;
+import java.util.List;
 
 import entity.InputMessageAbstract;
-import entity.article.WXArticles;
 import entity.article.WXItem;
-import entity.image.WXImage;
-import entity.music.WXMusic;
 import entity.outputmessage.OutputMessageAbstract;
 
-public class NewsOutputMessage extends OutputMessageAbstract {
+public class ArticleOutputMessage extends OutputMessageAbstract {
 
 	private String MsgType = "news";
 	private int ArticleCount;
-	private WXArticles Articles;
+	private List<WXItem> Articles;
 
 	@Override
 	public void inject(InputMessageAbstract ima) {
-		setToUserName(ima.getFromUserName());	 
+		setToUserName(ima.getFromUserName());
 		setFromUserName(ima.getToUserName());
 		setCreateTime(System.currentTimeMillis());
 		// setMediaId("sX-A3AylJ4DwYEfQLhFRSjq_FDddtW-OcbTAZpVsVJY");
 	}
+
 	@Override
 	public void inject(InputMessageAbstract ima, String ThumbMediaIdStr,
 			String Title, String MusicUrl) {
@@ -31,15 +29,7 @@ public class NewsOutputMessage extends OutputMessageAbstract {
 		setArticleCount(0);
 		setArticles(null);
 	}
-	
-	public void inject(InputMessageAbstract ima, WXItem item[]){
-		setToUserName(ima.getFromUserName());
-		setFromUserName(ima.getToUserName());
-		setArticleCount(item.length);
-		setArticles(new WXArticles(item));
-	}
-	
-	
+
 	public int getArticleCount() {
 		return ArticleCount;
 	}
@@ -48,15 +38,15 @@ public class NewsOutputMessage extends OutputMessageAbstract {
 		ArticleCount = articleCount;
 	}
 
-	public WXArticles getArticles() {
+	public List<WXItem> getArticles() {
 		return Articles;
 	}
 
-	public void setArticles(WXArticles articles) {
+	public void setArticles(List<WXItem> articles) {
 		Articles = articles;
 	}
 
-	public NewsOutputMessage() {
+	public ArticleOutputMessage() {
 	}
 
 	@Override
@@ -66,6 +56,16 @@ public class NewsOutputMessage extends OutputMessageAbstract {
 
 	public void setMsgType(String msgType) {
 		MsgType = msgType;
+	}
+
+	/**
+	 * @param articleCount
+	 * @param articles
+	 */
+	public ArticleOutputMessage(int articleCount, List<WXItem> articles) {
+		super();
+		ArticleCount = articleCount;
+		Articles = articles;
 	}
 
 }

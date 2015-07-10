@@ -3,16 +3,16 @@ package entity.outputmessage.mass.type;
 import entity.outputmessage.mass.MsgTypeOutputMessage;
 import entity.outputmessage.mass.OpenIDOutputMessage;
 
-public class NewsMassOutputMessage extends OpenIDOutputMessage {
+public class ArticleMassOutputMessage extends OpenIDOutputMessage {
 
 	private String msgtype = "mpnews";
 	private MsgTypeOutputMessage mpnews;
 
-	public NewsMassOutputMessage() {
+	public ArticleMassOutputMessage() {
 	}
 
 
-	public NewsMassOutputMessage(MsgTypeOutputMessage mpnews) {
+	public ArticleMassOutputMessage(MsgTypeOutputMessage mpnews) {
 		this.mpnews = mpnews;
 	}
 

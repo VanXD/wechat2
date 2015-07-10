@@ -1,18 +1,22 @@
-package entity.video;
+package entity;
 
-public class WXVideo {
+public class WXMedia {
 	private String MediaId;
 	private String Title;
 	private String Description;
 
-	public WXVideo() {
-	}
-
-	public WXVideo(String mediaId) {
+	public WXMedia(String mediaId) {
 		MediaId = mediaId;
 	}
 
-	public WXVideo(String mediaId, String title, String description) {
+	/**
+	 * video 用的
+	 * @param mediaId
+	 * @param title
+	 * @param description
+	 */
+	public WXMedia(String mediaId, String title, String description) {
+		super();
 		MediaId = mediaId;
 		Title = title;
 		Description = description;
