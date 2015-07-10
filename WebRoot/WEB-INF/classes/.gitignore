@@ -1,6 +1,5 @@
-/service/
-/util/
-/test/
 /vanxd/
-/interfaces/
-/entity/
+/handlerFactory.properties
+/util/
+/service/
+/test/

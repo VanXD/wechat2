@@ -14,7 +14,7 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
-
+	
 	<!-- 配置视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -23,8 +23,6 @@
 	</bean>
 
 	<!-- 静态文件处理 -->
-	<!-- <mvc:default-servlet-handler />
-	<mvc:annotation-driven></mvc:annotation-driven> -->
-
-
+	<mvc:default-servlet-handler />
+	<mvc:annotation-driven></mvc:annotation-driven>
 </beans>

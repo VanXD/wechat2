@@ -20,8 +20,12 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import entity.InputMessage;
 import entity.InputMessageAbstract;
 import entity.outputmessage.OutputMessageAbstract;
-import service.chain.AbstractNormalHandlerChain;
-import service.chain.SimpleHandlerChain;
+import entity.outputmessage.basic.TextOutputMessage;
+import service.AbstractHandler;
+import service.chain.AbstractFactoryChain;
+import service.chain.SimpleFactoryChain;
+import service.factory.AbstractFactory;
+import service.factory.VanxdHandlerFactory;
 import util.MessageUtil;
 import util.SignUtil;
 
@@ -51,14 +55,18 @@ public class Entry {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter writer = response.getWriter();
-
+		OutputMessageAbstract oma;
 		InputMessage im = initInputMessage(request);
 
-		//创建简单chain
-		AbstractNormalHandlerChain simpleHandlerChain = new SimpleHandlerChain();
-		// 得到chain的最后结果
-		OutputMessageAbstract oma = simpleHandlerChain.process(im);
-		
+		AbstractFactoryChain sf = new SimpleFactoryChain();
+		AbstractHandler handler = sf.process(im);
+		if (handler == null) {
+			System.out.println("no handler ");
+			oma = new TextOutputMessage("暂不支持此服务,谢谢.");
+			oma.inject(im);
+		} else {
+			oma = handler.handle(im);
+		}
 		// 输出
 		writer.print(MessageUtil.objToXml(oma));
 	}

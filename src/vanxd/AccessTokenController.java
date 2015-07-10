@@ -1,6 +1,7 @@
 package vanxd;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import util.MessageUtil;
+import util.PropertyUtil;
 
 @Controller
 public class AccessTokenController {
@@ -18,7 +20,6 @@ public class AccessTokenController {
 		try {
 			response.getWriter().write(accessToken);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

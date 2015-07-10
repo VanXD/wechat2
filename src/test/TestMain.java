@@ -10,10 +10,10 @@ import org.junit.Test;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import service.AbstractHandler;
-import service.chain.AbstractNormalHandlerChain;
-import service.chain.AbstractVanXDHandlerChain;
-import service.chain.SimpleHandlerChain;
-import service.chain.VanXDEventKeyHandlerChain;
+import service.chain.AbstractFactoryChain;
+import service.chain.SimpleFactoryChain;
+import service.factory.AbstractFactory;
+import service.factory.VanxdHandlerFactory;
 import util.HttpTools;
 import util.MessageUtil;
 import util.ienum.ButtonTypeEnum;
@@ -26,6 +26,7 @@ import entity.button.ButtonSummary;
 import entity.outputmessage.OutputMessageAbstract;
 import entity.outputmessage.basic.ArticleOutputMessage;
 import entity.outputmessage.basic.ImageOutputMessage;
+import entity.outputmessage.basic.TextOutputMessage;
 import entity.outputmessage.mass.ArticleSummary;
 import entity.outputmessage.mass.ArticlesMassOutputMessage;
 import entity.outputmessage.mass.MsgTypeOutputMessage;
@@ -96,16 +97,6 @@ public class TestMain {
 	}
 
 	@Test
-	public void textSimpleChianHandler() {
-		AbstractNormalHandlerChain simpleHandlerChain = new SimpleHandlerChain();
-		OutputMessageAbstract oma = null;
-		im.setMsgType(MessageTypeEnum.VIDEO.toString());
-		oma = simpleHandlerChain.process(im);
-		System.out.println(oma);
-		System.out.println(MessageUtil.objToXml(oma));
-	}
-
-	@Test
 	public void testEventKeyEnum() {
 		System.out.println(VanXDEventKeyEnum.HOBBY.toString());
 	}
@@ -158,14 +149,37 @@ public class TestMain {
 	}
 
 	@Test
-	public void testVanXDEventKeyHandlerChain() {
-		AbstractNormalHandlerChain simpleHandlerChain = new SimpleHandlerChain();
-		OutputMessageAbstract oma = null;
+	public void testFactory() {
+		AbstractFactory af = new VanxdHandlerFactory();
+		im.setMsgType("event");
+		im.setEvent("CLICK");
+		// im.setEventKey(VanXDEventKeyEnum.SELF_PHOTO.toString());
+		AbstractHandler handler = af.getInstance(im);
+		if (handler == null) {
+			System.out.println("no handler ");
+			return;
+		}
+		OutputMessageAbstract oma = handler.handle(im);
+		System.out.println(handler.getClass());
+		System.out.println(oma);
+		System.out.println(MessageUtil.objToXml(oma));
+	}
+
+	@Test
+	public void testSimpleFactory() {
+		AbstractFactoryChain sf = new SimpleFactoryChain();
+		OutputMessageAbstract oma;
 		im.setMsgType("event");
 		im.setEvent("CLICK");
 		im.setEventKey(VanXDEventKeyEnum.SELF_PHOTO.toString());
-		oma = simpleHandlerChain.process(im);
-		System.out.println(oma);
+		AbstractHandler handler = sf.process(im);
+		if (handler == null) {
+			System.out.println("no handler ");
+			oma = new TextOutputMessage("暂不支持此服务,谢谢.");
+			oma.inject(im);
+		} else {
+			oma = handler.handle(im);
+		}
 		System.out.println(MessageUtil.objToXml(oma));
 	}
 
