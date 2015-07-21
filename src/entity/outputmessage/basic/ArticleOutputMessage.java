@@ -17,7 +17,6 @@ public class ArticleOutputMessage extends OutputMessageAbstract {
 		setToUserName(ima.getFromUserName());
 		setFromUserName(ima.getToUserName());
 		setCreateTime(System.currentTimeMillis());
-		// setMediaId("sX-A3AylJ4DwYEfQLhFRSjq_FDddtW-OcbTAZpVsVJY");
 	}
 
 	@Override

@@ -5,6 +5,9 @@ public class MsgTypeOutputMessage {
 	private String content;
 	// image video voice news
 	private String media_id;
+	private String url;
+	private String type;
+	private String created_at;
 	// video
 	private String title;
 	private String description;
@@ -40,4 +43,37 @@ public class MsgTypeOutputMessage {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
+	}
+
+	@Override
+	public String toString() {
+		return "MsgTypeOutputMessage [content=" + content + ", media_id="
+				+ media_id + ", url=" + url + ", type=" + type
+				+ ", created_at=" + created_at + ", title=" + title
+				+ ", description=" + description + "]";
+	}
+
 }

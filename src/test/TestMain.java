@@ -1,15 +1,24 @@
 package test;
 
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.FilePart;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
+import org.apache.commons.httpclient.methods.multipart.Part;
 import org.junit.Test;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import service.AbstractHandler;
+import service.MaterialService;
 import service.chain.AbstractFactoryChain;
 import service.chain.SimpleFactoryChain;
 import service.factory.AbstractFactory;
@@ -20,9 +29,15 @@ import util.ienum.ButtonTypeEnum;
 import util.ienum.MessageTypeEnum;
 import util.ienum.VanXDEventKeyEnum;
 import entity.InputMessage;
+import entity.Result;
+import entity.WXMedia;
 import entity.article.WXItem;
+import entity.batch.BatchArticleSummary;
+import entity.batch.BatchSummary;
+import entity.batch.MaterialCount;
 import entity.button.Button;
 import entity.button.ButtonSummary;
+import entity.db.Material;
 import entity.outputmessage.OutputMessageAbstract;
 import entity.outputmessage.basic.ArticleOutputMessage;
 import entity.outputmessage.basic.ImageOutputMessage;
@@ -36,7 +51,25 @@ import entity.outputmessage.mass.type.ArticleMassOutputMessage;
 
 public class TestMain {
 	InputMessage im = new InputMessage();
-
+	
+	@Test
+	public void practice(){
+		WXMedia wx = new WXMedia();
+		wx.setDescription("123");
+		WXMedia wx2 = new WXMedia();
+		wx2.setMediaId("aaa");
+		JSONObject jsonO = JSONObject.fromObject(wx2);
+		wx = (WXMedia) JSONObject.toBean(jsonO, WXMedia.class);
+		System.out.println(wx);
+	}
+	
+	private <T> T getTClass(int i){
+		if(i == 0)
+			return (T) new Object();
+		else
+			return (T) new Material();
+	}
+	
 	// 新增永久图文素材
 	@Test
 	public void addPernate() {
@@ -183,4 +216,135 @@ public class TestMain {
 		System.out.println(MessageUtil.objToXml(oma));
 	}
 
+	@Test
+	public void tesAddImage() {
+
+		ArticlesMassOutputMessage[] amom = new ArticlesMassOutputMessage[1];
+		amom[0] = new ArticlesMassOutputMessage();
+		amom[0].setAuthor("VanXD");
+		amom[0].setContent("恩..这是微信工程的结构,嘻嘻~");
+		amom[0].setDigest("digist");
+		amom[0].setTitle("微信SDK初步结构");
+		amom[0].setShow_cover_pic(1);
+		amom[0].setThumb_media_id("JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM");
+		ArticleSummary as = new ArticleSummary();
+		as.setArticles(amom);
+		JSONObject jsonObject = JSONObject.fromObject(as);
+
+		String url = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=";
+
+		String accessToken = url + MessageUtil.getAccess_token();
+		try {
+			HttpURLConnection http = HttpTools.initHttp(accessToken, "POST");
+			HttpTools.jsonData(http, jsonObject);
+			String message = HttpTools.getResult(http);
+			System.out.println(message);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Test
+	public void testAddNews() {
+		MaterialService s = new MaterialService();
+	}
+
+	@Test
+	public void testGetMaterial() {
+		MaterialService s = new MaterialService();
+		System.out.println(s
+				.getArticleMaterial("36BbxqEys5zmqImZ5WrHPIKyODVZwWGD6bOKyqi_srk"));
+	}
+
+	@Test
+	public void testUpdateNews() {
+		MaterialService s = new MaterialService();
+	}
+
+	@Test()
+	public void testBatchGetMaterial() {
+		MaterialService s = new MaterialService();
+		Object result = s
+				.batchGetMaterial("{'type':'news','offset':0,'count':3}");
+		System.out.println(result);
+	}
+
+	@Test
+	public void testBatchSummary() {
+		String s = "{'item':[{'media_id':'36BbxqEys5zmqImZ5WrHPJ44vFJw254Vy6vw2bCGB_Y','content':{'news_item':[{'title':'fdasfs','author':'vanxd','digest':'digest','content':'dasdsa','content_source_url':'','thumb_media_id':'JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM','show_cover_pic':1,'url':'http://mp.weixin.qq.com/s?__biz=MzIwMDIxNTMzMw==&mid=207412948&idx=1&sn=970a4bd4483cf457891fbf968319b161#rd'}]},'update_time':1436921472},{'media_id':'36BbxqEys5zmqImZ5WrHPBxxsjGjaRtDFIWmb3AZ2fc','content':{'news_item':[{'title':'fda','author':'fdas','digest':'digest','content':'fdas','content_source_url':'','thumb_media_id':'JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM','show_cover_pic':1,'url':'http://mp.weixin.qq.com/s?__biz=MzIwMDIxNTMzMw==&mid=207412930&idx=1&sn=93e289f6eab0f599f9d8f10f092fa7ec#rd'}]},'update_time':1436920967},{'media_id':'CHfpVtZOGaqBYdnBUhwMm71NHjwe8ir_yC3hgsJAn8E','content':{'news_item':[{'title':'aaaaaaa','author':'VanXD','digest':'digist','content':'i..?/????ӄ,;;~','content_source_url':'http://dsa','thumb_media_id':'JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM','show_cover_pic':1,'url':'http://mp.weixin.qq.com/s?__biz=MzIwMDIxNTMzMw==&mid=207402124&idx=1&sn=d2d29c25462272bf5c7089f9e09caa8c#rd'}]},'update_time':1436865165}],'total_count':22,'item_count':3}";
+		// String s = "{'errcode':-1,'errmsg':'system error'}";
+		JSONObject jsonO = JSONObject.fromObject(s);
+		Object resultObject = null;
+		try {
+			resultObject = getResult(s);
+			System.out.println("1232");
+		} catch (net.sf.json.JSONException e) {
+			System.out.println("Batch success.");
+			resultObject = getBatchObj(s);
+		}
+		// BatchSummary bs = (BatchSummary) JSONObject.toBean(jsonO,
+		// BatchSummary.class);
+		System.out.println(resultObject);
+	}
+
+	private BatchSummary getBatchObj(String resultString) {
+		System.out.println(resultString);
+		JSONObject result = JSONObject.fromObject(resultString);
+		return (BatchSummary) JSONObject.toBean(result, BatchSummary.class);
+	}
+
+	private Result getResult(String resultString)
+			throws net.sf.json.JSONException {
+		System.out.println(resultString);
+		JSONObject resultJson = JSONObject.fromObject(resultString);
+		Result result = (Result) JSONObject.toBean(resultJson, Result.class);
+		if (result.getErrcode() == null)
+			throw new net.sf.json.JSONException();
+		else
+			return result;
+	}
+
+	@Test
+	public void testGetMaterialCount() {
+		MaterialService s = new MaterialService();
+		Object result = s.getMaterialCount();
+		// result =
+		// getResult("{'voice_count':0,'video_count':0,'image_count':17,'news_count':22}");
+		System.out.println(result);
+	}
+
+	@Test
+	public void testDelete(){
+//		36BbxqEys5zmqImZ5WrHPIKyODVZwWGD6bOKyqi_srk
+		MaterialService s = new MaterialService();
+		System.out.println(s.delMaterial("36BbxqEys5zmqImZ5WrDDIKyODVZwWGD6bOKyqi_srk"));
+	
+	}
+	
+	@Test
+	public void testGetTargetClass() {
+//		String s = "{'voice_count':0,'video_count':0,'image_count':17,'news_count':22}";
+//		 String s = "{'errcode':-1,'errmsg':'system error'}";
+		String s = "{'item':[{'media_id':'36BbxqEys5zmqImZ5WrHPJ44vFJw254Vy6vw2bCGB_Y','content':{'news_item':[{'title':'fdasfs','author':'vanxd','digest':'digest','content':'dasdsa','content_source_url':'','thumb_media_id':'JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM','show_cover_pic':1,'url':'http://mp.weixin.qq.com/s?__biz=MzIwMDIxNTMzMw==&mid=207412948&idx=1&sn=970a4bd4483cf457891fbf968319b161#rd'}]},'update_time':1436921472},{'media_id':'36BbxqEys5zmqImZ5WrHPBxxsjGjaRtDFIWmb3AZ2fc','content':{'news_item':[{'title':'fda','author':'fdas','digest':'digest','content':'fdas','content_source_url':'','thumb_media_id':'JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM','show_cover_pic':1,'url':'http://mp.weixin.qq.com/s?__biz=MzIwMDIxNTMzMw==&mid=207412930&idx=1&sn=93e289f6eab0f599f9d8f10f092fa7ec#rd'}]},'update_time':1436920967},{'media_id':'CHfpVtZOGaqBYdnBUhwMm71NHjwe8ir_yC3hgsJAn8E','content':{'news_item':[{'title':'aaaaaaa','author':'VanXD','digest':'digist','content':'i..?/????ӄ,;;~','content_source_url':'http://dsa','thumb_media_id':'JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM','show_cover_pic':1,'url':'http://mp.weixin.qq.com/s?__biz=MzIwMDIxNTMzMw==&mid=207402124&idx=1&sn=d2d29c25462272bf5c7089f9e09caa8c#rd'}]},'update_time':1436865165}],'total_count':22,'item_count':3}";
+		Object resultObject = null;
+		try {
+			resultObject = getTargetClass(s, new Result());
+			if (resultObject instanceof Result) {
+				if (((Result) resultObject).getErrcode() == null) {
+					throw new net.sf.json.JSONException();
+				}
+			}
+		} catch (net.sf.json.JSONException e ) {
+			resultObject = getTargetClass(s, new BatchSummary());
+		}
+
+		System.out.println(resultObject);
+	}
+
+	private <T> T getTargetClass(String resultString, T t) {
+		System.out.println(resultString);
+		JSONObject result = JSONObject.fromObject(resultString);
+		return (T) JSONObject.toBean(result, t.getClass());
+	}
 }

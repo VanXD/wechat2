@@ -1,7 +1,7 @@
 package entity.outputmessage.mass;
 
 public class ArticleSummary {
-	ArticlesMassOutputMessage[] articles;
+	private ArticlesMassOutputMessage[] articles;
 
 	public ArticleSummary() {
 	}

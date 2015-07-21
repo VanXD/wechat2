@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project adv-config="true">
   <container path="com.genuitec.runtime.library/com.genuitec.spring_3.1">
-    <disable type="core"/>
     <disable type="facets"/>
+    <disable type="core"/>
     <custom-jar path="D:lib/iProgram/JAVA/toolsJar/Spring/spring-framework-4.1.4.RELEASE/iRequire/spring-orm-4.1.4.RELEASE.jar"/>
     <custom-jar path="D:lib/iProgram/JAVA/toolsJar/Spring/spring-framework-4.1.4.RELEASE/iRequire/commons-beanutils-1.7.0.jar"/>
     <custom-jar path="D:lib/iProgram/JAVA/toolsJar/Spring/spring-framework-4.1.4.RELEASE/iRequire/spring-context-support-4.1.4.RELEASE.jar"/>
@@ -38,5 +38,6 @@
     <custom-jar path="D:lib/iProgram/JAVA/toolsJar/Spring/spring-framework-4.1.4.RELEASE/iRequire/commons-logging-1.1.1.jar"/>
     <custom-jar path="D:lib/iProgram/JAVA/toolsJar/Spring/spring-framework-4.1.4.RELEASE/iRequire/commons-pool-1.5.3.jar"/>
     <custom-jar path="D:lib/iProgram/JAVA/toolsJar/Spring/spring-framework-4.1.4.RELEASE/iRequire/spring-web-4.1.4.RELEASE.jar"/>
+    <custom-jar path="D:lib/iProgram/JAVA/toolsJar/Spring/spring-framework-4.1.4.RELEASE/iRequire/commons-io-2.2.jar"/>
   </container>
 </project>

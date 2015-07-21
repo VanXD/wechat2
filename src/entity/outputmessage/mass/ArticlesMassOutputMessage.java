@@ -8,7 +8,7 @@ public class ArticlesMassOutputMessage {
 	private String content;
 	private String digest;
 	private int show_cover_pic;
-	
+
 	public ArticlesMassOutputMessage() {
 	}
 
@@ -71,6 +71,15 @@ public class ArticlesMassOutputMessage {
 
 	public void setShow_cover_pic(int show_cover_pic) {
 		this.show_cover_pic = show_cover_pic;
+	}
+
+	@Override
+	public String toString() {
+		return "ArticlesMassOutputMessage [thumb_media_id=" + thumb_media_id
+				+ ", author=" + author + ", title=" + title
+				+ ", content_source_url=" + content_source_url + ", content="
+				+ content + ", digest=" + digest + ", show_cover_pic="
+				+ show_cover_pic + "]";
 	}
 
 }

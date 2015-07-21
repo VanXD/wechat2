@@ -10,7 +10,15 @@ public class WXMedia {
 	}
 
 	/**
+	 * 
+	 */
+	public WXMedia() {
+		super();
+	}
+
+	/**
 	 * video 用的
+	 * 
 	 * @param mediaId
 	 * @param title
 	 * @param description
@@ -44,6 +52,12 @@ public class WXMedia {
 
 	public void setDescription(String description) {
 		Description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "WXMedia [MediaId=" + MediaId + ", Title=" + Title
+				+ ", Description=" + Description + "]";
 	}
 
 }

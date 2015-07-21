@@ -66,11 +66,10 @@ public class MessageUtil {
 	 * @return int 返回类型
 	 * @throws
 	 */
-	
 
 	public static void main(String[] args) {
-//		System.out.println(createMenu());
-//		 System.out.println(deleteMenu());
+		// System.out.println(createMenu());
+		// System.out.println(deleteMenu());
 
 	}
 
