@@ -17,12 +17,11 @@ import com.google.gson.JsonArray;
 
 import entity.Result;
 import entity.batch.BatchArticleSummary;
+import entity.batch.BatchRequire;
 import entity.batch.BatchSummary;
-import entity.batch.MaterialCount;
 import entity.db.Material;
+import entity.db.MaterialCount;
 import entity.db.MaterialProxy;
-import entity.db.News;
-import entity.db.NewsProxy;
 import entity.outputmessage.mass.ArticleSummary;
 import entity.outputmessage.mass.ArticleUpdateSummary;
 import entity.outputmessage.mass.ArticlesMassOutputMessage;
@@ -34,8 +33,13 @@ import util.MessageUtil;
 import util.WechatRequestURL;
 import util.ienum.MessageTypeEnum;
 
+/**
+ * 与微信官方进行交互
+ * @author VanXD
+ *
+ */
 @Service
-public class MaterialService {
+public class MaterialWeChatService {
 
 	/**
 	 * <p>
@@ -55,6 +59,8 @@ public class MaterialService {
 		String fileSuffix = FileUtil.getFileSuffix(materialProxy.getFile()
 				.getOriginalFilename());
 		String fileTyep = FileUtil.getFileType(fileSuffix);
+		materialProxy.setType(fileTyep);
+		
 		HttpURLConnection http = HttpTools.initHttp(
 				WechatRequestURL.ADD_MATERIAL + accessToken + "&type="
 						+ fileTyep, "POST");
@@ -93,11 +99,11 @@ public class MaterialService {
 	 *            : 前端整理好的json数据
 	 * @return Result
 	 */
-	public Object addNews(NewsProxy newsProxy) {
+	public Object addNews(MaterialProxy materialProxy) {
 		ArticleSummary as = new ArticleSummary();
-		as.setArticles(newsProxy.getArticles());
+		as.setArticles(materialProxy.getArticles());
 		JSONObject jsonObject = JSONObject.fromObject(as);
-
+		materialProxy.setType("news");
 		String url = WechatRequestURL.ADD_NEWS + MessageUtil.getAccess_token();
 		HttpURLConnection http = HttpTools.initHttp(url, "POST");
 		DataOutputStream out = HttpTools.jsonData(http, jsonObject);
@@ -112,7 +118,7 @@ public class MaterialService {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} catch (net.sf.json.JSONException e) {
-			resultObject = getTargetClass(resultString, new News());
+			resultObject = getTargetClass(resultString, new MaterialProxy());
 		}
 		return resultObject;
 	}
@@ -177,10 +183,10 @@ public class MaterialService {
 		return resultObject;
 	}
 
-	public Result updateArticle(NewsProxy newsProxy) {
+	public Result updateArticle(MaterialProxy materialProxy) {
 		ArticleUpdateSummary articleUpdateSummary = new ArticleUpdateSummary();
 		// 将newsProxy 封装到articleUpdateSummary 以用正确的数据结构
-		articleUpdateSummary.wrap(newsProxy);
+		articleUpdateSummary.wrap(materialProxy);
 
 		HttpURLConnection http = HttpTools
 				.initHttp(
@@ -233,13 +239,13 @@ public class MaterialService {
 		return null;
 	}
 
-	public Object batchGetMaterial(String jsonRequest) {
+	public Object batchGetMaterial(BatchRequire batchRequire) {
 		HttpURLConnection http = HttpTools.initHttp(
 				WechatRequestURL.BATCH_GET_MATERIAL
 						+ MessageUtil.getAccess_token(), "POST");
 		// 放入json参数
 		DataOutputStream out = HttpTools.jsonData(http,
-				JSONObject.fromObject(jsonRequest));
+				JSONObject.fromObject(batchRequire));
 		String resultString = null;
 		Object resultObject = null;
 		try {

@@ -2,11 +2,14 @@ package entity.db;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import entity.outputmessage.mass.ArticlesMassOutputMessage;
 import bsh.This;
 import interfaces.EntityWrapperInterface;
 
 public class MaterialProxy extends Material implements EntityWrapperInterface {
 	private MultipartFile file;
+	private ArticlesMassOutputMessage[] articles;
+	private Integer index;
 
 	public MultipartFile getFile() {
 		return file;
@@ -16,9 +19,25 @@ public class MaterialProxy extends Material implements EntityWrapperInterface {
 		this.file = file;
 	}
 
+	public ArticlesMassOutputMessage[] getArticles() {
+		return articles;
+	}
+
+	public void setArticles(ArticlesMassOutputMessage[] articles) {
+		this.articles = articles;
+	}
+
+	public Integer getIndex() {
+		return index;
+	}
+
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
+
 	@Override
 	public void wrap(Object o) {
-		if (o instanceof MaterialProxy) {
+		if (o instanceof Material) {
 			Material material = (Material) o;
 			setMedia_id(material.getMedia_id());
 			setUrl(material.getUrl());

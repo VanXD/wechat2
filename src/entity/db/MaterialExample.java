@@ -1,6 +1,7 @@
 package entity.db;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MaterialExample {
@@ -314,6 +315,136 @@ public class MaterialExample {
             return (Criteria) this;
         }
 
+        public Criteria andTypeIsNull() {
+            addCriterion("type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIsNotNull() {
+            addCriterion("type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeEqualTo(String value) {
+            addCriterion("type =", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotEqualTo(String value) {
+            addCriterion("type <>", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThan(String value) {
+            addCriterion("type >", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("type >=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThan(String value) {
+            addCriterion("type <", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLessThanOrEqualTo(String value) {
+            addCriterion("type <=", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeLike(String value) {
+            addCriterion("type like", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotLike(String value) {
+            addCriterion("type not like", value, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeIn(List<String> values) {
+            addCriterion("type in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotIn(List<String> values) {
+            addCriterion("type not in", values, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeBetween(String value1, String value2) {
+            addCriterion("type between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andTypeNotBetween(String value1, String value2) {
+            addCriterion("type not between", value1, value2, "type");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countIsNull() {
+            addCriterion("article_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countIsNotNull() {
+            addCriterion("article_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countEqualTo(Integer value) {
+            addCriterion("article_count =", value, "article_count");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countNotEqualTo(Integer value) {
+            addCriterion("article_count <>", value, "article_count");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countGreaterThan(Integer value) {
+            addCriterion("article_count >", value, "article_count");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countGreaterThanOrEqualTo(Integer value) {
+            addCriterion("article_count >=", value, "article_count");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countLessThan(Integer value) {
+            addCriterion("article_count <", value, "article_count");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countLessThanOrEqualTo(Integer value) {
+            addCriterion("article_count <=", value, "article_count");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countIn(List<Integer> values) {
+            addCriterion("article_count in", values, "article_count");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countNotIn(List<Integer> values) {
+            addCriterion("article_count not in", values, "article_count");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countBetween(Integer value1, Integer value2) {
+            addCriterion("article_count between", value1, value2, "article_count");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticle_countNotBetween(Integer value1, Integer value2) {
+            addCriterion("article_count not between", value1, value2, "article_count");
+            return (Criteria) this;
+        }
+
         public Criteria andUrlIsNull() {
             addCriterion("url is null");
             return (Criteria) this;
@@ -381,6 +512,66 @@ public class MaterialExample {
 
         public Criteria andUrlNotBetween(String value1, String value2) {
             addCriterion("url not between", value1, value2, "url");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeIsNull() {
+            addCriterion("time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeIsNotNull() {
+            addCriterion("time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeEqualTo(Date value) {
+            addCriterion("time =", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNotEqualTo(Date value) {
+            addCriterion("time <>", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeGreaterThan(Date value) {
+            addCriterion("time >", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("time >=", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeLessThan(Date value) {
+            addCriterion("time <", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeLessThanOrEqualTo(Date value) {
+            addCriterion("time <=", value, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeIn(List<Date> values) {
+            addCriterion("time in", values, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNotIn(List<Date> values) {
+            addCriterion("time not in", values, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeBetween(Date value1, Date value2) {
+            addCriterion("time between", value1, value2, "time");
+            return (Criteria) this;
+        }
+
+        public Criteria andTimeNotBetween(Date value1, Date value2) {
+            addCriterion("time not between", value1, value2, "time");
             return (Criteria) this;
         }
     }

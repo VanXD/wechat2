@@ -1,9 +1,15 @@
 package entity.batch;
 
+/**
+ * 获取永久素材列表的请求实体
+ * 
+ * @author VanXD
+ *
+ */
 public class BatchRequire {
 	private String type;
-	private int offset;
-	private int count;
+	private Integer offset;
+	private Integer count;
 
 	/**
 	 * 
@@ -17,7 +23,7 @@ public class BatchRequire {
 	 * @param offset
 	 * @param count
 	 */
-	public BatchRequire(String type, int offset, int count) {
+	public BatchRequire(String type, Integer offset, Integer count) {
 		super();
 		this.type = type;
 		this.offset = offset;
@@ -32,20 +38,26 @@ public class BatchRequire {
 		this.type = type;
 	}
 
-	public int getOffset() {
+	public Integer getOffset() {
 		return offset;
 	}
 
-	public void setOffset(int offset) {
+	public void setOffset(Integer offset) {
 		this.offset = offset;
 	}
 
-	public int getCount() {
+	public Integer getCount() {
 		return count;
 	}
 
-	public void setCount(int count) {
+	public void setCount(Integer count) {
 		this.count = count;
+	}
+
+	@Override
+	public String toString() {
+		return "BatchRequire [type=" + type + ", offset=" + offset + ", count="
+				+ count + "]";
 	}
 
 }

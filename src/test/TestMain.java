@@ -18,7 +18,7 @@ import org.junit.Test;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import service.AbstractHandler;
-import service.MaterialService;
+import service.MaterialWeChatService;
 import service.chain.AbstractFactoryChain;
 import service.chain.SimpleFactoryChain;
 import service.factory.AbstractFactory;
@@ -34,7 +34,6 @@ import entity.WXMedia;
 import entity.article.WXItem;
 import entity.batch.BatchArticleSummary;
 import entity.batch.BatchSummary;
-import entity.batch.MaterialCount;
 import entity.button.Button;
 import entity.button.ButtonSummary;
 import entity.db.Material;
@@ -247,27 +246,24 @@ public class TestMain {
 
 	@Test
 	public void testAddNews() {
-		MaterialService s = new MaterialService();
+		MaterialWeChatService s = new MaterialWeChatService();
 	}
 
 	@Test
 	public void testGetMaterial() {
-		MaterialService s = new MaterialService();
+		MaterialWeChatService s = new MaterialWeChatService();
 		System.out.println(s
 				.getArticleMaterial("36BbxqEys5zmqImZ5WrHPIKyODVZwWGD6bOKyqi_srk"));
 	}
 
 	@Test
 	public void testUpdateNews() {
-		MaterialService s = new MaterialService();
+		MaterialWeChatService s = new MaterialWeChatService();
 	}
 
 	@Test()
 	public void testBatchGetMaterial() {
-		MaterialService s = new MaterialService();
-		Object result = s
-				.batchGetMaterial("{'type':'news','offset':0,'count':3}");
-		System.out.println(result);
+		MaterialWeChatService s = new MaterialWeChatService();
 	}
 
 	@Test
@@ -307,7 +303,7 @@ public class TestMain {
 
 	@Test
 	public void testGetMaterialCount() {
-		MaterialService s = new MaterialService();
+		MaterialWeChatService s = new MaterialWeChatService();
 		Object result = s.getMaterialCount();
 		// result =
 		// getResult("{'voice_count':0,'video_count':0,'image_count':17,'news_count':22}");
@@ -317,7 +313,7 @@ public class TestMain {
 	@Test
 	public void testDelete(){
 //		36BbxqEys5zmqImZ5WrHPIKyODVZwWGD6bOKyqi_srk
-		MaterialService s = new MaterialService();
+		MaterialWeChatService s = new MaterialWeChatService();
 		System.out.println(s.delMaterial("36BbxqEys5zmqImZ5WrDDIKyODVZwWGD6bOKyqi_srk"));
 	
 	}

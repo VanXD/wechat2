@@ -1,11 +1,8 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
-    <% String path=request.getContextPath(); String basePath=request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/"; %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
         <!DOCTYPE HTML>
         <html>
 
         <head>
-            <base href="<%=basePath%>">
 
             <title>Vanxd Wechat Tool Kit</title>
             <meta http-equiv="pragma" content="no-cache">
@@ -16,8 +13,13 @@
             <meta charset="utf-8">
             <script src="js/jquery-1.11.2.min.js"></script>
         </head>
-
+	
         <body>
+        	<p>获取素材总数</p>
+        	<form action="material/getMaterialCount" method="get">
+        		<input type="submit">
+        	</form>
+        
             <p>修改图文素材</p>
             <form action="#" method="POST" class="add_news">
                 <span class="intro">
@@ -63,12 +65,10 @@
             <!-- start 获取永久素材列表 -->
             <!-- https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=ACCESS_TOKEN -->
             <p>获取永久素材列表</p>
-            <form action="https://api.weixin.qq.com/cgi-bin/material/batchget_material" method="POST">
-                access_token:
-                <input class="accessToken" type="text" name="access_token"> <br> type:
-                <input type="text" name="type" value="image"> <br> offset:
-                <input type="text" name="offset" value="0"> <br> count:
-                <input type="text" name="count" value="10">
+            <form action="material/batchGetMaterial" method="POST">
+                 type: <input type="text" name="type" value="image"> <br> 
+                 offset: <input type="text" name="offset" value="0"> <br> 
+                 count: <input type="text" name="count" value="10">
                 <br>
                 <input type="submit" value="submit"> <br>
             </form>

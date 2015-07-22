@@ -1,6 +1,6 @@
 package entity.outputmessage.mass;
 
-import entity.db.NewsProxy;
+import entity.db.MaterialProxy;
 import interfaces.EntityWrapperInterface;
 
 public class ArticleUpdateSummary implements EntityWrapperInterface {
@@ -54,8 +54,8 @@ public class ArticleUpdateSummary implements EntityWrapperInterface {
 
 	@Override
 	public void wrap(Object o) {
-		if (o instanceof NewsProxy) {
-			NewsProxy newsProxy = (NewsProxy) o;
+		if (o instanceof MaterialProxy) {
+			MaterialProxy newsProxy = (MaterialProxy) o;
 			setArticles(newsProxy.getArticles()[0]);
 			setIndex(newsProxy.getIndex());
 			setMedia_id(newsProxy.getMedia_id());

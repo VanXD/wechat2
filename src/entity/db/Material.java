@@ -1,5 +1,7 @@
 package entity.db;
 
+import java.util.Date;
+
 public class Material {
     private String media_id;
 
@@ -7,7 +9,13 @@ public class Material {
 
     private String introduction;
 
+    private String type;
+
+    private Integer article_count;
+
     private String url;
+
+    private Date time;
 
     public String getMedia_id() {
         return media_id;
@@ -33,6 +41,22 @@ public class Material {
         this.introduction = introduction == null ? null : introduction.trim();
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
+    public Integer getArticle_count() {
+        return article_count;
+    }
+
+    public void setArticle_count(Integer article_count) {
+        this.article_count = article_count;
+    }
+
     public String getUrl() {
         return url;
     }
@@ -41,11 +65,11 @@ public class Material {
         this.url = url == null ? null : url.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Material [media_id=" + media_id + ", title=" + title
-				+ ", introduction=" + introduction + ", url=" + url + "]";
-	}
-    
-    
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
 }

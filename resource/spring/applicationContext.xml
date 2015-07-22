@@ -68,6 +68,10 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 		<property name="basePackage" value="mapper"></property>
-
+	</bean>
+	
+	<!--  需要设定变量值的 bean -->
+	<bean class="entity.db.MaterialCountProxy">
+		<property name="id" value="1"></property>
 	</bean>
 </beans>

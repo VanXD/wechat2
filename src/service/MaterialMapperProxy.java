@@ -10,8 +10,15 @@ import org.springframework.stereotype.Service;
 import entity.db.Material;
 import entity.db.MaterialExample;
 
+/**
+ * Mapper都是由Generator进行自动生成，为了方便以后改表结构，进行扩展不影响自己扩展功能的使用，进行代理
+ * 
+ * @author VanXD
+ *
+ */
 @Service
 public class MaterialMapperProxy implements MaterialMapper {
+
 	@Autowired
 	MaterialMapper materialMapper;
 
