@@ -1,4 +1,4 @@
-package service;
+package service.doservice;
 
 import java.util.List;
 

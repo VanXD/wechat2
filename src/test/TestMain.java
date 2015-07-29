@@ -18,9 +18,9 @@ import org.junit.Test;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import service.AbstractHandler;
-import service.MaterialWeChatService;
 import service.chain.AbstractFactoryChain;
 import service.chain.SimpleFactoryChain;
+import service.doservice.MaterialWeChatService;
 import service.factory.AbstractFactory;
 import service.factory.VanxdHandlerFactory;
 import util.HttpTools;
@@ -53,13 +53,10 @@ public class TestMain {
 	
 	@Test
 	public void practice(){
-		WXMedia wx = new WXMedia();
-		wx.setDescription("123");
-		WXMedia wx2 = new WXMedia();
-		wx2.setMediaId("aaa");
-		JSONObject jsonO = JSONObject.fromObject(wx2);
-		wx = (WXMedia) JSONObject.toBean(jsonO, WXMedia.class);
-		System.out.println(wx);
+		Object a = new WXMedia("123");
+		JSONObject ao = JSONObject.fromObject(a);
+		System.out.println(ao);
+		
 	}
 	
 	private <T> T getTClass(int i){

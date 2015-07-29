@@ -12,7 +12,7 @@ import util.MessageUtil;
 @Controller
 public class ButtonController {
 	
-	@RequestMapping("/deleteButton")
+//	@RequestMapping("/deleteButton")
 	public void deleteButton(HttpServletResponse response){
 		try {
 			response.getWriter().write(MessageUtil.deleteMenu());

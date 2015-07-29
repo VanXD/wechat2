@@ -1,0 +1,8 @@
+td{
+    max-width: 50px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.table-responsive > .table > thead > tr > th, .table-responsive > .table > tbody > tr > th, .table-responsive > .table > tfoot > tr > th, .table-responsive > .table > thead > tr > td, .table-responsive > .table > tbody > tr > td, .table-responsive > .table > tfoot > tr > td{
+    max-width: none;
+}

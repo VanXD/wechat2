@@ -14,8 +14,12 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
-
-	<context:component-scan base-package="service">
+	<!-- 不扫描@Service -->
+	<context:component-scan base-package="service.doservice">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+	<context:component-scan base-package="facade">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Service" />
 	</context:component-scan>

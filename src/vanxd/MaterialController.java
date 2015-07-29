@@ -1,16 +1,8 @@
 package vanxd;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import mapper.MaterialMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,36 +11,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import entity.Result;
-import entity.WXMedia;
 import entity.batch.BatchRequire;
-import entity.batch.BatchSummary;
-import entity.db.Material;
-import entity.db.MaterialCount;
-import entity.db.MaterialCountProxy;
 import entity.db.MaterialProxy;
-import entity.outputmessage.mass.ArticlesMassOutputMessage;
-import entity.outputmessage.mass.ArticlesMassOutputMessageArray;
-import entity.outputmessage.mass.type.ArticleMassOutputMessage;
-import service.MaterialCountMapperProxy;
-import service.MaterialMapperProxy;
-import service.MaterialWeChatService;
-import util.FileUtil;
-import util.ienum.WeChatGlobalResponse;
+import facade.PersistenceFacade;
 
+/**
+ * <p>
+ * 利用PersistenceFacade进行交互，避免Controller耦合太多对象
+ * 
+ * @author Administrator
+ *
+ */
 @Controller
 @RequestMapping("/material")
 public class MaterialController {
 	@Autowired
-	MaterialWeChatService materialWeChatService;
-	@Autowired
-	MaterialMapperProxy materialMapperProxy;
-	@Autowired
-	MaterialCountMapperProxy materialCountMapperProxy;
-	/**
-	 * 为了能够自动注入id=1,将此entity的bean定义在了spring配置文件中,而非使用@Entity
-	 */
-	@Autowired
-	MaterialCountProxy materialCountProxy;
+	PersistenceFacade persistenceFacade;
 
 	/**
 	 * <p>
@@ -63,16 +41,7 @@ public class MaterialController {
 	 */
 	@RequestMapping(value = "/addMaterial", method = RequestMethod.POST)
 	public @ResponseBody Object addMaterial(MaterialProxy materialProxy) {
-		Object result = materialWeChatService.addMaterial(materialProxy);
-		if (result instanceof Result) {
-			return result;
-		} else {
-			materialProxy.wrap(result);
-			materialMapperProxy.insert(materialProxy);
-			materialCountMapperProxy.increaseByPrimaryKeySelective(
-					materialProxy.getFile(), 1);
-			return (Material) materialProxy;
-		}
+		return persistenceFacade.addMaterial(materialProxy);
 	}
 
 	/**
@@ -83,16 +52,7 @@ public class MaterialController {
 	 */
 	@RequestMapping(value = "/addNews", method = RequestMethod.POST)
 	public @ResponseBody Object addNews(@RequestBody MaterialProxy materialProxy) {
-		Object result = materialWeChatService.addNews(materialProxy);
-		if (result instanceof Result) {
-			return result;
-		} else {
-			materialProxy.wrap(result);
-			materialMapperProxy.insert(materialProxy);
-			materialCountMapperProxy
-					.increaseByPrimaryKeySelective(materialCountProxy);
-			return (MaterialProxy) materialProxy;
-		}
+		return persistenceFacade.addNews(materialProxy);
 	}
 
 	/**
@@ -101,15 +61,9 @@ public class MaterialController {
 	 * @param mediaId
 	 */
 	@RequestMapping(value = "/delMatrial", method = RequestMethod.POST)
-	public void delMaterial(
+	public @ResponseBody Result delMaterial(
 			@RequestParam(value = "media_id", required = true) String media_id) {
-		Result result = materialWeChatService.delMaterial(media_id);
-		if (result.getErrcode().equals("0")) {
-			materialCountMapperProxy
-					.increaseByPrimaryKeySelective(media_id, -1);
-			materialMapperProxy.deleteByPrimaryKey(media_id);
-		}
-		System.out.println(result);
+		return persistenceFacade.delMaterial(media_id);
 	}
 
 	/**
@@ -122,22 +76,20 @@ public class MaterialController {
 	@RequestMapping(value = "/updateArticle", method = RequestMethod.POST)
 	public @ResponseBody Result updateArticle(
 			@RequestBody MaterialProxy materialProxy) {
-		Result result = materialWeChatService.updateArticle(materialProxy);
-		if (result.getErrcode().equals("0")) {
-			materialMapperProxy.updateByPrimaryKeySelective(materialProxy);
-		}
-		return result;
+		return persistenceFacade.updateArticle(materialProxy);
 	}
 
 	/**
+	 * <p>
 	 * 添加临时素材，暂时没有保存到数据库中
+	 * <p>
+	 * 暂时没有封装
 	 * 
 	 * @param file
 	 */
 	@RequestMapping(value = "/addTempMaterial", method = RequestMethod.POST)
 	public void addTempMaterial(@RequestParam("file") MultipartFile file) {
-		Result result = materialWeChatService.addTempMaterial(file);
-		System.out.println(result);
+		persistenceFacade.addTempMaterial(file);
 	}
 
 	/**
@@ -146,14 +98,9 @@ public class MaterialController {
 	 * @param jsonRequest
 	 */
 	@RequestMapping(value = "/batchGetMaterial", method = RequestMethod.POST)
-	public @ResponseBody Object batchGetMaterial(BatchRequire batchRequire) {
-		Object result = materialWeChatService.batchGetMaterial(batchRequire);
-		if (result instanceof Result) {
-			return result;
-		} else {
-			return (BatchSummary) result;
-		}
-
+	public @ResponseBody Object batchGetMaterial(
+			@RequestBody BatchRequire batchRequire) {
+		return persistenceFacade.batchGetMaterial(batchRequire);
 	}
 
 	/**
@@ -163,18 +110,7 @@ public class MaterialController {
 	 */
 	@RequestMapping(value = "/getMaterialCount")
 	public @ResponseBody Object getMaterialCount() {
-		Object result = materialWeChatService.getMaterialCount();
-		if (result instanceof Result) {
-			if (((Result) result).getErrcode().equals(
-					WeChatGlobalResponse.MAX_API_DAILY_QUOTA.toString()))
-				return materialCountMapperProxy.selectByPrimaryKey(1);
-			return result;
-		} else {
-			((MaterialCount) result).setId(1);
-			materialCountMapperProxy
-					.updateByPrimaryKey(((MaterialCount) result));
-			return (MaterialCount) result;
-		}
+		return persistenceFacade.getMaterialCount();
 	}
 
 }

@@ -1,4 +1,4 @@
- function sendJsonData(url, data) {
+ function sendJsonData(url, data, callback) {
      $.ajax({
          type: 'post',
          url: url,
@@ -6,28 +6,39 @@
          contentType: 'application/json;charset=utf-8',
          //数据格式是json串
          data: JSON.stringify(data),
-         success: function (data) { //返回json结果
-             
+         success: callback
+     });
+ }
+
+ function getAccessToken() {
+     $.ajax({
+         type: "GET",
+         url: "http://localhost:8080/wechat2/accesstoken",
+         success: function (data) {
+
          }
      });
  }
 
-function getAccessToken(){
-    $.ajax({
-        type    : "GET",
-        url     : "http://localhost:8080/wechat2/accesstoken",
-        success : function(data){
-            
-        }
-    });
-}
+ function getMaterialCount() {
+     $.ajax({
+         type: "GET",
+         url: "getMaterialCount",
+         success: function (materialCount) {
+             $("#voice_count").html(materialCount.voice_count);
+             $("#video_count").html(materialCount.video_count);
+             $("#image_count").html(materialCount.image_count);
+             $("#news_count").html(materialCount.news_count);
+         }
+     });
+ }
 
-function getMaterialCount(){
-    $.ajax({
-        type    : "GET",
-        url     : "getMaterialCount",
-        success : function(materialCount){
-            $("#news_count").val(materialCount.news_count);
-        }
-    });
-}
+ function batchGetMaterial() {
+     var batchRequire = new Object();
+     batchRequire.type = $("#type").val();
+     batchRequire.offset = $("#offset").val();
+     batchRequire.count = $("#count").val();
+     sendJsonData("http://localhost:8080/wechat2/material/batchGetMaterial", batchRequire, function (data) {
+         alert(data);
+     })
+ }

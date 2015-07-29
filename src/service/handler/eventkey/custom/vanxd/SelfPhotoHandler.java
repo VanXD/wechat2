@@ -17,7 +17,12 @@ public class SelfPhotoHandler extends AbstractHandler {
 		if (im.getEventKey().equals(VanXDEventKeyEnum.SELF_PHOTO.toString())) {
 			System.out.println("SelfPhotoHandler handler~~");
 			List<WXItem> wxItem = new ArrayList<WXItem>();
-
+			
+			wxItem.add(new WXItem(
+					"微信SDK结构",
+					"恩..这是微信工程的结构,UPDATE TIME:2015年7月22日 13:18:34",
+					"https://mmbiz.qlogo.cn/mmbiz/PduSZ63J80u9p6RCYQWvpRu5FDtCNqQ64CZLhkBFyAuw0vkuCmqukL6iaGMqcQjZCTMH2dQsJEcAuEId9u3dlKg/0?wx_fmt=png",
+					"http://naotu.baidu.com/viewshare.html?shareId=awwbw1ypp2ps"));
 			wxItem.add(new WXItem(
 					"微信SDK结构",
 					"恩..这是微信工程的结构,UPDATE TIME:2015年7月10日 11:10:24",
