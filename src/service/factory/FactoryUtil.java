@@ -1,7 +1,8 @@
 package service.factory;
 
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+
 import service.AbstractHandler;
-import entity.InputMessageAbstract;
 
 public class FactoryUtil {
 	public static  AbstractHandler isNextFactory(InputMessageAbstract im, AbstractFactory nextFactory) {

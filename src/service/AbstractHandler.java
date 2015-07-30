@@ -1,8 +1,8 @@
 package service;
 
-import entity.InputMessage;
-import entity.InputMessageAbstract;
-import entity.outputmessage.OutputMessageAbstract;
+import com.aliapp.wxxd.material.entity.InputMessage;
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.OutputMessageAbstract;
 
 public abstract class AbstractHandler {
 	protected AbstractHandler nextHandler;

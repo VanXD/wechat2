@@ -3,10 +3,11 @@ package service.handler.eventkey.custom.vanxd;
 import java.util.ArrayList;
 import java.util.List;
 
-import entity.InputMessageAbstract;
-import entity.article.WXItem;
-import entity.outputmessage.OutputMessageAbstract;
-import entity.outputmessage.basic.ArticleOutputMessage;
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.article.WXItem;
+import com.aliapp.wxxd.material.entity.outputmessage.OutputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.basic.ArticleOutputMessage;
+
 import service.AbstractHandler;
 import util.ienum.VanXDEventKeyEnum;
 

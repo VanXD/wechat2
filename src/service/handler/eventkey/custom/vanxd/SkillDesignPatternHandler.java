@@ -1,9 +1,10 @@
 package service.handler.eventkey.custom.vanxd;
 
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.OutputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.basic.TextOutputMessage;
+
 import interfaces.TextAnswerInterface;
-import entity.InputMessageAbstract;
-import entity.outputmessage.OutputMessageAbstract;
-import entity.outputmessage.basic.TextOutputMessage;
 import service.AbstractHandler;
 import util.ienum.VanXDEventKeyEnum;
 

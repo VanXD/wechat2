@@ -4,9 +4,10 @@ import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import entity.InputMessage;
-import entity.InputMessageAbstract;
-import entity.outputmessage.OutputMessageAbstract;
+import com.aliapp.wxxd.material.entity.InputMessage;
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.OutputMessageAbstract;
+
 import service.AbstractHandler;
 import util.PropertyUtil;
 

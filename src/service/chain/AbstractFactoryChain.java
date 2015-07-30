@@ -1,7 +1,8 @@
 package service.chain;
 
-import entity.InputMessageAbstract;
-import entity.outputmessage.OutputMessageAbstract;
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.OutputMessageAbstract;
+
 import service.AbstractHandler;
 import service.factory.AbstractFactory;
 import service.factory.CommonFactory;

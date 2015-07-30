@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.aliapp.wxxd.material.entity.InputMessage;
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.OutputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.basic.TextOutputMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import entity.InputMessage;
-import entity.InputMessageAbstract;
-import entity.outputmessage.OutputMessageAbstract;
-import entity.outputmessage.basic.TextOutputMessage;
 import service.AbstractHandler;
 import service.chain.AbstractFactoryChain;
 import service.chain.SimpleFactoryChain;

@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import entity.Result;
-import entity.batch.BatchRequire;
-import entity.db.MaterialProxy;
-import facade.PersistenceFacade;
+import com.aliapp.wxxd.material.entity.Result;
+import com.aliapp.wxxd.material.entity.batch.BatchRequire;
+import com.aliapp.wxxd.material.entity.db.MaterialProxy;
+
+import facade.MaterialFacade;
 
 /**
  * <p>
@@ -26,7 +27,7 @@ import facade.PersistenceFacade;
 @RequestMapping("/material")
 public class MaterialController {
 	@Autowired
-	PersistenceFacade persistenceFacade;
+	MaterialFacade persistenceFacade;
 
 	/**
 	 * <p>

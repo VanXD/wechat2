@@ -1,8 +1,9 @@
 package service.handler.event;
 
-import entity.InputMessageAbstract;
-import entity.outputmessage.OutputMessageAbstract;
-import entity.outputmessage.basic.TextOutputMessage;
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.OutputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.basic.TextOutputMessage;
+
 import service.AbstractHandler;
 
 public class ClickHandler extends AbstractHandler {

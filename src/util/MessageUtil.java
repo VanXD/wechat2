@@ -7,11 +7,10 @@ import java.net.MalformedURLException;
 
 import net.sf.json.JSONObject;
 
+import com.aliapp.wxxd.material.entity.article.WXItem;
+import com.aliapp.wxxd.material.entity.button.Button;
+import com.aliapp.wxxd.material.entity.button.ButtonSummary;
 import com.thoughtworks.xstream.XStream;
-
-import entity.article.WXItem;
-import entity.button.Button;
-import entity.button.ButtonSummary;
 
 public class MessageUtil {
 	public static final String appID = "wxc1ca2ea6a518621b";

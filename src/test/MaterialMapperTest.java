@@ -1,14 +1,14 @@
 package test;
 
 import static org.junit.Assert.*;
-import mapper.MaterialMapper;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import entity.db.Material;
+import com.aliapp.wxxd.material.entity.db.Material;
+import com.aliapp.wxxd.material.mapper.MaterialMapper;
 
 public class MaterialMapperTest {
 	ApplicationContext applicationContext;

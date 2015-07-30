@@ -1,9 +1,10 @@
 package service.handler.common;
 
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.OutputMessageAbstract;
+import com.aliapp.wxxd.material.entity.outputmessage.basic.TextOutputMessage;
+
 import service.AbstractHandler;
-import entity.InputMessageAbstract;
-import entity.outputmessage.OutputMessageAbstract;
-import entity.outputmessage.basic.TextOutputMessage;
 
 public class EventHandler extends AbstractHandler{
 

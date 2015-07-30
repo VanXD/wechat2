@@ -4,7 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
 
 public interface MsgTypeInterface {
 	

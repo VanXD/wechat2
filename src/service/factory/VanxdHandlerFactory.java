@@ -2,8 +2,9 @@ package service.factory;
 
 import java.util.Properties;
 
-import entity.InputMessage;
-import entity.InputMessageAbstract;
+import com.aliapp.wxxd.material.entity.InputMessage;
+import com.aliapp.wxxd.material.entity.InputMessageAbstract;
+
 import service.AbstractHandler;
 import service.handler.eventkey.custom.vanxd.SelfPhotoHandler;
 import util.PropertyUtil;
