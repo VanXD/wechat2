@@ -85,14 +85,17 @@ public class HttpTools {
 		return out;
 	}
 
+	/**
+	 * <p>
+	 * 得到结果转UTF-8的字符串
+	 * 
+	 * @param http
+	 * @return String
+	 */
 	public static String getResult(HttpURLConnection http) {
-		OutputStream os;
 		String message = null;
 		try {
-			os = http.getOutputStream();
-			os.flush();
-			os.close();
-			InputStream is = http.getInputStream();
+			InputStream is = getInputStreamResult(http);
 			int size = is.available();
 			byte[] jsonBytes = new byte[size];
 			is.read(jsonBytes);
@@ -103,6 +106,28 @@ public class HttpTools {
 		}
 
 		return message;
+	}
+
+	/**
+	 * <p>
+	 * 得到结果的InputStream对象
+	 * 
+	 * @param http
+	 * @return
+	 */
+	public static InputStream getInputStreamResult(HttpURLConnection http) {
+		OutputStream os;
+		try {
+			os = http.getOutputStream();
+			os.flush();
+			os.close();
+			return http.getInputStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	/**

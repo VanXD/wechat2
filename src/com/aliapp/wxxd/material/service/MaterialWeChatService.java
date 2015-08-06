@@ -174,7 +174,6 @@ public class MaterialWeChatService {
 			resultObject = getTargetClass(resultString, new Result());
 			isResultNULL(resultObject);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (net.sf.json.JSONException e) {
 			resultObject = getTargetClass(resultString,
@@ -286,7 +285,11 @@ public class MaterialWeChatService {
 		JSONObject result = JSONObject.fromObject(resultString);
 		return (T) JSONObject.toBean(result, t.getClass());
 	}
-
+	
+	/**
+	 * <p>如果返回结果的errcode 为null则抛出异常，在异常里进行转换
+	 * @param resultObject
+	 */
 	private void isResultNULL(Object resultObject) {
 		if (resultObject instanceof Result) {
 			if (((Result) resultObject).getErrcode() == null) {

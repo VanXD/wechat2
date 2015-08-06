@@ -4,6 +4,8 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,28 +47,82 @@ import service.factory.AbstractFactory;
 import service.factory.VanxdHandlerFactory;
 import util.HttpTools;
 import util.MessageUtil;
+import util.WechatRequestURL;
 import util.ienum.ButtonTypeEnum;
 import util.ienum.MessageTypeEnum;
 import util.ienum.VanXDEventKeyEnum;
 
 public class TestMain {
 	InputMessage im = new InputMessage();
-	
+
 	@Test
-	public void practice(){
+	public void practice() {
 		Object a = new WXMedia("123");
 		JSONObject ao = JSONObject.fromObject(a);
 		System.out.println(ao);
-		
+
 	}
-	
-	private <T> T getTClass(int i){
-		if(i == 0)
+
+	private <T> T getTClass(int i) {
+		if (i == 0)
 			return (T) new Object();
 		else
 			return (T) new Material();
 	}
-	
+
+	// 测试获取指定永久素材
+	// FpStB0Ex0Kse-xROWhfBoTlNkwX9lmQZjIVdfYli6qw
+	@Test
+	public void testGetArticleMaterial() {
+		MaterialWeChatService service = new MaterialWeChatService();
+
+		MsgTypeOutputMessage msgTypeOutputMessage = new MsgTypeOutputMessage();
+		msgTypeOutputMessage
+				.setMedia_id("YJMI9Tj7ILTv9DK1H8NFi2Jd95EWd0hNXWLt6CJmz0s");
+		HttpURLConnection http = HttpTools.initHttp(
+				WechatRequestURL.GET_MATERIAL + MessageUtil.getAccess_token(),
+				"POST");
+
+		// 放入json参数
+		DataOutputStream out = HttpTools.jsonData(http,
+				JSONObject.fromObject(msgTypeOutputMessage));
+
+
+		try {
+			HttpTools.sendRequest(out, http);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		InputStream in = HttpTools.getInputStreamResult(http);
+		createNewFile(in);
+	}
+
+	public void createNewFile(InputStream in) {
+		// 使用本地文件系统接受网络数据并存为新文件
+		File file = new File("newFile.jpg");
+		RandomAccessFile raf;
+		try {
+			file.createNewFile();
+			raf = new RandomAccessFile(file, "rw");
+			byte[] buf = new byte[2048];
+
+			int num = in.read(buf);
+
+			while (num != (-1)) {// 是否读完所有数据
+				raf.write(buf, 0, num);// 将数据写往文件
+				raf.skipBytes(num);// 顺序写文件字节
+				num = in.read(buf);// 继续从网络中读取文件
+			}
+			in.close();
+			raf.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	// 新增永久图文素材
 	@Test
 	public void addPernate() {
@@ -250,8 +306,9 @@ public class TestMain {
 	@Test
 	public void testGetMaterial() {
 		MaterialWeChatService s = new MaterialWeChatService();
-		System.out.println(s
-				.getArticleMaterial("36BbxqEys5zmqImZ5WrHPIKyODVZwWGD6bOKyqi_srk"));
+		System.out
+				.println(s
+						.getArticleMaterial("36BbxqEys5zmqImZ5WrHPIKyODVZwWGD6bOKyqi_srk"));
 	}
 
 	@Test
@@ -309,17 +366,19 @@ public class TestMain {
 	}
 
 	@Test
-	public void testDelete(){
-//		36BbxqEys5zmqImZ5WrHPIKyODVZwWGD6bOKyqi_srk
+	public void testDelete() {
+		// 36BbxqEys5zmqImZ5WrHPIKyODVZwWGD6bOKyqi_srk
 		MaterialWeChatService s = new MaterialWeChatService();
-		System.out.println(s.delMaterial("36BbxqEys5zmqImZ5WrDDIKyODVZwWGD6bOKyqi_srk"));
-	
+		System.out.println(s
+				.delMaterial("36BbxqEys5zmqImZ5WrDDIKyODVZwWGD6bOKyqi_srk"));
+
 	}
-	
+
 	@Test
 	public void testGetTargetClass() {
-//		String s = "{'voice_count':0,'video_count':0,'image_count':17,'news_count':22}";
-//		 String s = "{'errcode':-1,'errmsg':'system error'}";
+		// String s =
+		// "{'voice_count':0,'video_count':0,'image_count':17,'news_count':22}";
+		// String s = "{'errcode':-1,'errmsg':'system error'}";
 		String s = "{'item':[{'media_id':'36BbxqEys5zmqImZ5WrHPJ44vFJw254Vy6vw2bCGB_Y','content':{'news_item':[{'title':'fdasfs','author':'vanxd','digest':'digest','content':'dasdsa','content_source_url':'','thumb_media_id':'JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM','show_cover_pic':1,'url':'http://mp.weixin.qq.com/s?__biz=MzIwMDIxNTMzMw==&mid=207412948&idx=1&sn=970a4bd4483cf457891fbf968319b161#rd'}]},'update_time':1436921472},{'media_id':'36BbxqEys5zmqImZ5WrHPBxxsjGjaRtDFIWmb3AZ2fc','content':{'news_item':[{'title':'fda','author':'fdas','digest':'digest','content':'fdas','content_source_url':'','thumb_media_id':'JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM','show_cover_pic':1,'url':'http://mp.weixin.qq.com/s?__biz=MzIwMDIxNTMzMw==&mid=207412930&idx=1&sn=93e289f6eab0f599f9d8f10f092fa7ec#rd'}]},'update_time':1436920967},{'media_id':'CHfpVtZOGaqBYdnBUhwMm71NHjwe8ir_yC3hgsJAn8E','content':{'news_item':[{'title':'aaaaaaa','author':'VanXD','digest':'digist','content':'i..?/????ӄ,;;~','content_source_url':'http://dsa','thumb_media_id':'JilFq5lLY6Y-Z4nCTA3naLx1xuYKVDW6oW4hLHTURTM','show_cover_pic':1,'url':'http://mp.weixin.qq.com/s?__biz=MzIwMDIxNTMzMw==&mid=207402124&idx=1&sn=d2d29c25462272bf5c7089f9e09caa8c#rd'}]},'update_time':1436865165}],'total_count':22,'item_count':3}";
 		Object resultObject = null;
 		try {
@@ -329,7 +388,7 @@ public class TestMain {
 					throw new net.sf.json.JSONException();
 				}
 			}
-		} catch (net.sf.json.JSONException e ) {
+		} catch (net.sf.json.JSONException e) {
 			resultObject = getTargetClass(s, new BatchSummary());
 		}
 
