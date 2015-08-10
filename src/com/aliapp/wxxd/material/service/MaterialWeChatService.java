@@ -9,17 +9,20 @@ import javax.servlet.http.HttpUtils;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.util.NewBeanInstanceStrategy;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.aliapp.wxxd.WeChatServiceAbstract;
 import com.aliapp.wxxd.material.entity.Result;
 import com.aliapp.wxxd.material.entity.batch.BatchArticleSummary;
 import com.aliapp.wxxd.material.entity.batch.BatchRequire;
 import com.aliapp.wxxd.material.entity.batch.BatchSummary;
 import com.aliapp.wxxd.material.entity.db.Material;
 import com.aliapp.wxxd.material.entity.db.MaterialCount;
-import com.aliapp.wxxd.material.entity.db.MaterialProxy;
+import com.aliapp.wxxd.material.entity.dbproxy.MaterialCountProxy;
+import com.aliapp.wxxd.material.entity.dbproxy.MaterialProxy;
 import com.aliapp.wxxd.material.entity.outputmessage.mass.ArticleSummary;
 import com.aliapp.wxxd.material.entity.outputmessage.mass.ArticleUpdateSummary;
 import com.aliapp.wxxd.material.entity.outputmessage.mass.ArticlesMassOutputMessage;
@@ -30,16 +33,17 @@ import com.google.gson.JsonArray;
 import util.FileUtil;
 import util.HttpTools;
 import util.MessageUtil;
-import util.WechatRequestURL;
 import util.ienum.MessageTypeEnum;
+import util.wechat.request.url.WechatMaterialRequestURL;
 
 /**
  * 与微信官方进行交互
+ * 
  * @author VanXD
  *
  */
 @Service
-public class MaterialWeChatService {
+public class MaterialWeChatService extends WeChatServiceAbstract {
 
 	/**
 	 * <p>
@@ -60,9 +64,9 @@ public class MaterialWeChatService {
 				.getOriginalFilename());
 		String fileTyep = FileUtil.getFileType(fileSuffix);
 		materialProxy.setType(fileTyep);
-		
+
 		HttpURLConnection http = HttpTools.initHttp(
-				WechatRequestURL.ADD_MATERIAL + accessToken + "&type="
+				WechatMaterialRequestURL.ADD_MATERIAL + accessToken + "&type="
 						+ fileTyep, "POST");
 		// 放入json参数,并发送
 		if (fileTyep.equals(MessageTypeEnum.VIDEO.toString())) {
@@ -70,24 +74,14 @@ public class MaterialWeChatService {
 					materialProxy.getIntroduction());
 			HttpTools.jsonData(http, JSONObject.fromObject(desc));
 		}
-		String resultString = null;
-		Object resultObject = null;
+
+		DataOutputStream out = null;
 		try {
-			// 写入文件
-			DataOutputStream out = HttpTools.sendMediaRequest(
-					materialProxy.getFile(), http);
-			// 发送数据
-			HttpTools.sendRequest(out, http);
-			resultString = HttpTools.getResult(http);
-			resultObject = getTargetClass(resultString, new Result());
-			isResultNULL(resultObject);
-		} catch (net.sf.json.JSONException e) {
-			resultObject = getTargetClass(resultString, new Material());
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+			out = HttpTools.sendMediaRequest(materialProxy.getFile(), http);
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
+		getResult(out, http, new Material());
 		return resultObject;
 	}
 
@@ -104,22 +98,13 @@ public class MaterialWeChatService {
 		as.setArticles(materialProxy.getArticles());
 		JSONObject jsonObject = JSONObject.fromObject(as);
 		materialProxy.setType("news");
-		String url = WechatRequestURL.ADD_NEWS + MessageUtil.getAccess_token();
+		String url = WechatMaterialRequestURL.ADD_NEWS
+				+ MessageUtil.getAccess_token();
 		HttpURLConnection http = HttpTools.initHttp(url, "POST");
 		DataOutputStream out = HttpTools.jsonData(http, jsonObject);
-		String resultString = null;
-		Object resultObject = null;
 
-		try {
-			HttpTools.sendRequest(out, http);
-			resultString = HttpTools.getResult(http);
-			resultObject = getTargetClass(resultString, new Result());
-			isResultNULL(resultObject);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (net.sf.json.JSONException e) {
-			resultObject = getTargetClass(resultString, new MaterialProxy());
-		}
+		getResult(out, http, new MaterialProxy());
+
 		return resultObject;
 	}
 
@@ -133,18 +118,13 @@ public class MaterialWeChatService {
 		MsgTypeOutputMessage msgTypeOutputMessage = new MsgTypeOutputMessage();
 		msgTypeOutputMessage.setMedia_id(mediaId);
 		HttpURLConnection http = HttpTools.initHttp(
-				WechatRequestURL.DEL_MATERIAL + MessageUtil.getAccess_token(),
-				"POST");
+				WechatMaterialRequestURL.DEL_MATERIAL
+						+ MessageUtil.getAccess_token(), "POST");
 		// 放入json参数
 		DataOutputStream out = HttpTools.jsonData(http,
 				JSONObject.fromObject(msgTypeOutputMessage));
-		try {
-			HttpTools.sendRequest(out, http);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String resultString = HttpTools.getResult(http);
-		return getTargetClass(resultString, new Result());
+		getResult(out, http);
+		return (Result) resultObject;
 	}
 
 	/**
@@ -159,26 +139,12 @@ public class MaterialWeChatService {
 		MsgTypeOutputMessage msgTypeOutputMessage = new MsgTypeOutputMessage();
 		msgTypeOutputMessage.setMedia_id(mediaId);
 		HttpURLConnection http = HttpTools.initHttp(
-				WechatRequestURL.GET_MATERIAL + MessageUtil.getAccess_token(),
-				"POST");
+				WechatMaterialRequestURL.GET_MATERIAL
+						+ MessageUtil.getAccess_token(), "POST");
 		// 放入json参数
 		DataOutputStream out = HttpTools.jsonData(http,
 				JSONObject.fromObject(msgTypeOutputMessage));
-
-		String resultString = null;
-		Object resultObject = null;
-
-		try {
-			HttpTools.sendRequest(out, http);
-			resultString = HttpTools.getResult(http);
-			resultObject = getTargetClass(resultString, new Result());
-			isResultNULL(resultObject);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (net.sf.json.JSONException e) {
-			resultObject = getTargetClass(resultString,
-					new MsgTypeOutputMessage());
-		}
+		getResult(out, http, new MsgTypeOutputMessage());
 		return resultObject;
 	}
 
@@ -187,114 +153,35 @@ public class MaterialWeChatService {
 		// 将newsProxy 封装到articleUpdateSummary 以用正确的数据结构
 		articleUpdateSummary.wrap(materialProxy);
 
-		HttpURLConnection http = HttpTools
-				.initHttp(
-						WechatRequestURL.UPDATE_ARTICLE
-								+ MessageUtil.getAccess_token(), "POST");
+		HttpURLConnection http = HttpTools.initHttp(
+				WechatMaterialRequestURL.UPDATE_ARTICLE
+						+ MessageUtil.getAccess_token(), "POST");
 
 		DataOutputStream out = HttpTools.jsonData(http, JSONObject
 				.fromObject(JSONObject.fromObject(articleUpdateSummary)));
 
-		try {
-			HttpTools.sendRequest(out, http);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String resultString = HttpTools.getResult(http);
-		return getTargetClass(resultString, new Result());
-	}
-
-	/**
-	 * <p>
-	 * 没有图文素材
-	 * 
-	 * @return Result
-	 */
-	public Result addTempMaterial(MultipartFile file) {
-
-		String accessToken = MessageUtil.getAccess_token();
-		String fileSuffix = FileUtil.getFileSuffix(file.getOriginalFilename());
-		String fileTyep = FileUtil.getFileType(fileSuffix);
-		HttpURLConnection http = HttpTools.initHttp(
-				WechatRequestURL.ADD_MATERIAL + accessToken + "&type="
-						+ fileTyep, "POST");
-		String resultString = null;
-		Object resultObject = null;
-		try {
-			// 发送数据
-			DataOutputStream out = HttpTools.sendMediaRequest(file, http);
-			HttpTools.sendRequest(out, http);
-			resultString = HttpTools.getResult(http);
-			resultObject = getTargetClass(resultString, new Result());
-			isResultNULL(resultObject);
-		} catch (net.sf.json.JSONException e) {
-			resultObject = getTargetClass(resultString,
-					new MsgTypeOutputMessage());
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		getResult(out, http);
+		return (Result) resultObject;
 	}
 
 	public Object batchGetMaterial(BatchRequire batchRequire) {
 		HttpURLConnection http = HttpTools.initHttp(
-				WechatRequestURL.BATCH_GET_MATERIAL
+				WechatMaterialRequestURL.BATCH_GET_MATERIAL
 						+ MessageUtil.getAccess_token(), "POST");
 		// 放入json参数
 		DataOutputStream out = HttpTools.jsonData(http,
 				JSONObject.fromObject(batchRequire));
-		String resultString = null;
-		Object resultObject = null;
-		try {
-			HttpTools.sendRequest(out, http);
-			resultString = HttpTools.getResult(http);
-			resultObject = getTargetClass(resultString, new Result());
-			isResultNULL(resultObject);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} catch (net.sf.json.JSONException e) {
-			resultObject = getTargetClass(resultString, new BatchSummary());
-		}
+		getResult(out, http, new BatchSummary());
 		return resultObject;
 
 	}
 
 	public Object getMaterialCount() {
 		HttpURLConnection http = HttpTools.initHttp(
-				WechatRequestURL.GET_MATERIAL_COUNT
+				WechatMaterialRequestURL.GET_MATERIAL_COUNT
 						+ MessageUtil.getAccess_token(), "GET");
-
-		String resultString = HttpTools.getResult(http);
-		Object resultObject = null;
-
-		try {
-			resultObject = getTargetClass(resultString, new Result());
-			isResultNULL(resultObject);
-		} catch (net.sf.json.JSONException e) {
-			resultObject = getTargetClass(resultString, new MaterialCount());
-		}
+		getResult(null, http, new MaterialCountProxy());
 		return resultObject;
 
-	}
-
-	private <T> T getTargetClass(String resultString, T t) {
-		System.out.println("转换至目标对象：" + t.getClass());
-		System.out.println(resultString);
-		JSONObject result = JSONObject.fromObject(resultString);
-		return (T) JSONObject.toBean(result, t.getClass());
-	}
-	
-	/**
-	 * <p>如果返回结果的errcode 为null则抛出异常，在异常里进行转换
-	 * @param resultObject
-	 */
-	private void isResultNULL(Object resultObject) {
-		if (resultObject instanceof Result) {
-			if (((Result) resultObject).getErrcode() == null) {
-				throw new net.sf.json.JSONException();
-			}
-		}
 	}
 }

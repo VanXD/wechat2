@@ -1,6 +1,6 @@
-package util;
+package util.wechat.request.url;
 
-public class WechatRequestURL {
+public class WechatMaterialRequestURL {
 	//新增永久多媒体文件
 	public static final String ADD_MATERIAL = "https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=";
 	//新增永久图文

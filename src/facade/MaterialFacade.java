@@ -11,8 +11,8 @@ import com.aliapp.wxxd.material.entity.batch.BatchRequire;
 import com.aliapp.wxxd.material.entity.batch.BatchSummary;
 import com.aliapp.wxxd.material.entity.db.Material;
 import com.aliapp.wxxd.material.entity.db.MaterialCount;
-import com.aliapp.wxxd.material.entity.db.MaterialCountProxy;
-import com.aliapp.wxxd.material.entity.db.MaterialProxy;
+import com.aliapp.wxxd.material.entity.dbproxy.MaterialCountProxy;
+import com.aliapp.wxxd.material.entity.dbproxy.MaterialProxy;
 import com.aliapp.wxxd.material.service.MaterialCountMapperProxy;
 import com.aliapp.wxxd.material.service.MaterialMapperProxy;
 import com.aliapp.wxxd.material.service.MaterialWeChatService;
@@ -116,16 +116,6 @@ public class MaterialFacade {
 			materialMapperProxy.updateByPrimaryKeySelective(materialProxy);
 		}
 		return result;
-	}
-
-	/**
-	 * 添加临时素材，暂时没有保存到数据库中
-	 * 
-	 * @param file
-	 */
-	public void addTempMaterial(MultipartFile file) {
-		Result result = materialWeChatService.addTempMaterial(file);
-		System.out.println(result);
 	}
 
 	/**

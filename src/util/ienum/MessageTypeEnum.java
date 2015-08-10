@@ -6,6 +6,7 @@ public enum MessageTypeEnum {
 	IMAGE("image"),
 	VOICE("voice"),
 	VIDEO("video"),
+	NEWS("news"),
 	SHORTVIDEO("shortvideo"),
 	LOCATION("location"),
 	LINK("link"),

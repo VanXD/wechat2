@@ -74,19 +74,25 @@
 	</tx:advice>
 	<aop:config>
 		<aop:pointcut expression="execution(* com.aliapp.wxxd.material.mapper.*.*(..))"
-			id="txPoint" />
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint" />
+			id="txMaterMapperPoint" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txMaterMapperPoint" />
+	</aop:config>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.aliapp.wxxd.group.mapper.*.*(..))"
+			id="txGroupMapperPoint" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txGroupMapperPoint" />
 	</aop:config>
 	<!-- end 事务管理 -->
 
 	<!-- mapper 扫描配置 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-		<property name="basePackage" value="com.aliapp.wxxd.material.mapper"></property>
+		<property name="basePackage"
+			value="com.aliapp.wxxd.material.mapper,com.aliapp.wxxd.group.mapper"></property>
 	</bean>
 
 	<!-- 需要设定变量值的 bean -->
-	<bean class="com.aliapp.wxxd.material.entity.db.MaterialCountProxy">
+	<bean class="com.aliapp.wxxd.material.entity.dbproxy.MaterialCountProxy">
 		<property name="id" value="1"></property>
 	</bean>
 </beans>

@@ -28,7 +28,7 @@ public class SkillJavaHandler extends AbstractHandler implements TextAnswerInter
 	@Override
 	public String answer() {
 		StringBuilder answer = new StringBuilder();
-		answer.append("1.SPRING(MVC)4 : 主要使用MVC的视图转发，Spring与其他框架的集成，环境搭建，AOP及IOC的使用。\n");
+		answer.append("1.SPRING(MVC)4 : 主要使用MVC的视图转发，Spring与其他框架的集成，环境搭建，AOP及IOC的使用。学习了Spring IoC容器的初始化，Bean的注入过程。\n");
 		answer.append("2.MyBatis3/Hibernate4 : 大多时候使用它们的逆向工具，将数据库的表逆向到Java代码，并自动生成MAPPER/DAO"
 				+ "，并与Spring整合。\n");
 		answer.append("3.Shiro : 恩..看完了一本书，练习了一些基本例子~~\n");

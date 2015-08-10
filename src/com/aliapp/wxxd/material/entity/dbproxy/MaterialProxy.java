@@ -1,7 +1,8 @@
-package com.aliapp.wxxd.material.entity.db;
+package com.aliapp.wxxd.material.entity.dbproxy;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.aliapp.wxxd.material.entity.db.Material;
 import com.aliapp.wxxd.material.entity.outputmessage.mass.ArticlesMassOutputMessage;
 
 import bsh.This;

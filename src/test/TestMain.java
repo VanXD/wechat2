@@ -47,10 +47,10 @@ import service.factory.AbstractFactory;
 import service.factory.VanxdHandlerFactory;
 import util.HttpTools;
 import util.MessageUtil;
-import util.WechatRequestURL;
 import util.ienum.ButtonTypeEnum;
 import util.ienum.MessageTypeEnum;
 import util.ienum.VanXDEventKeyEnum;
+import util.wechat.request.url.WechatMaterialRequestURL;
 
 public class TestMain {
 	InputMessage im = new InputMessage();
@@ -58,8 +58,7 @@ public class TestMain {
 	@Test
 	public void practice() {
 		Object a = new WXMedia("123");
-		JSONObject ao = JSONObject.fromObject(a);
-		System.out.println(ao);
+		System.out.println(a.getClass());
 
 	}
 
@@ -80,7 +79,7 @@ public class TestMain {
 		msgTypeOutputMessage
 				.setMedia_id("YJMI9Tj7ILTv9DK1H8NFi2Jd95EWd0hNXWLt6CJmz0s");
 		HttpURLConnection http = HttpTools.initHttp(
-				WechatRequestURL.GET_MATERIAL + MessageUtil.getAccess_token(),
+				WechatMaterialRequestURL.GET_MATERIAL + MessageUtil.getAccess_token(),
 				"POST");
 
 		// 放入json参数
@@ -360,8 +359,6 @@ public class TestMain {
 	public void testGetMaterialCount() {
 		MaterialWeChatService s = new MaterialWeChatService();
 		Object result = s.getMaterialCount();
-		// result =
-		// getResult("{'voice_count':0,'video_count':0,'image_count':17,'news_count':22}");
 		System.out.println(result);
 	}
 
@@ -400,4 +397,5 @@ public class TestMain {
 		JSONObject result = JSONObject.fromObject(resultString);
 		return (T) JSONObject.toBean(result, t.getClass());
 	}
+	
 }

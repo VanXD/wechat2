@@ -131,7 +131,7 @@ public class HttpTools {
 	}
 
 	/**
-	 * 将JSONObject 数据压入http,并发送
+	 * 将JSONObject 数据压入http
 	 * 
 	 * @param http
 	 * @param jsonObject
@@ -153,8 +153,10 @@ public class HttpTools {
 	public static void sendRequest(DataOutputStream out, HttpURLConnection http)
 			throws IOException {
 		http.connect();
-		out.flush();
-		out.close();
+		if(out != null){
+			out.flush();
+			out.close();
+		}
 	}
 
 	public static DataOutputStream jsonData(HttpURLConnection http,

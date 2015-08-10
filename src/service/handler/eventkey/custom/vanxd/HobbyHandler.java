@@ -29,9 +29,9 @@ public class HobbyHandler extends AbstractHandler implements
 	@Override
 	public String answer() {
 		StringBuilder answer = new StringBuilder();
-		answer.append("1.热爱看架构类与原理类书籍.~\n");
+		answer.append("1.热爱看计算机相关论文及书籍...~\n");
 		answer.append("2.偶尔打游戏,LOL,DOTA2.\n");
-		answer.append("3.其实还喜欢运动，就是身体太差~\n");
+		answer.append("3.喜欢尝试新鲜事务,做一些没做过的事.\n");
 		return answer.toString();
 	}
 

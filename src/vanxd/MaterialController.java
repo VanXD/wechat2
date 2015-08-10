@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.aliapp.wxxd.material.entity.Result;
 import com.aliapp.wxxd.material.entity.batch.BatchRequire;
-import com.aliapp.wxxd.material.entity.db.MaterialProxy;
+import com.aliapp.wxxd.material.entity.dbproxy.MaterialProxy;
 
 import facade.MaterialFacade;
 
@@ -78,19 +78,6 @@ public class MaterialController {
 	public @ResponseBody Result updateArticle(
 			@RequestBody MaterialProxy materialProxy) {
 		return persistenceFacade.updateArticle(materialProxy);
-	}
-
-	/**
-	 * <p>
-	 * 添加临时素材，暂时没有保存到数据库中
-	 * <p>
-	 * 暂时没有封装
-	 * 
-	 * @param file
-	 */
-	@RequestMapping(value = "/addTempMaterial", method = RequestMethod.POST)
-	public void addTempMaterial(@RequestParam("file") MultipartFile file) {
-		persistenceFacade.addTempMaterial(file);
 	}
 
 	/**

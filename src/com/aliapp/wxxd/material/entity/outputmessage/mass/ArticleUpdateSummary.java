@@ -1,6 +1,6 @@
 package com.aliapp.wxxd.material.entity.outputmessage.mass;
 
-import com.aliapp.wxxd.material.entity.db.MaterialProxy;
+import com.aliapp.wxxd.material.entity.dbproxy.MaterialProxy;
 
 import interfaces.EntityWrapperInterface;
 

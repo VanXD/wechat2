@@ -103,6 +103,8 @@ public class MaterialCountMapperProxy implements MaterialCountMapper {
 			materialCount.setVoice_count(var);
 		} else if (type.equals(MessageTypeEnum.VIDEO.toString())) {
 			materialCount.setVideo_count(var);
+		}else if (type.equals(MessageTypeEnum.NEWS.toString())) {
+			materialCount.setNews_count(var);
 		}
 		return materialCount;
 	}
