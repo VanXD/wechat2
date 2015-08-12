@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.aliapp.wxxd.material.entity.db.Material;
 import com.aliapp.wxxd.material.entity.db.MaterialCount;
 import com.aliapp.wxxd.material.entity.db.MaterialCountExample;
+import com.aliapp.wxxd.material.entity.dbproxy.MaterialCountProxy;
 import com.aliapp.wxxd.material.mapper.MaterialCountMapper;
 
 import util.FileUtil;
@@ -24,7 +25,8 @@ import util.ienum.MessageTypeEnum;
 public class MaterialCountMapperProxy implements MaterialCountMapper {
 	@Autowired
 	MaterialCountMapper materialCountMapper;
-
+	@Autowired 
+	MaterialCountProxy materialCountProxy;
 	public int countByExample(MaterialCountExample example) {
 		return materialCountMapper.countByExample(example);
 	}
@@ -110,6 +112,10 @@ public class MaterialCountMapperProxy implements MaterialCountMapper {
 	}
 
 	public int increaseByPrimaryKeySelective(MaterialCount record) {
+		//要先判断数据库是否有数据
+		if(materialCountMapper.selectByPrimaryKey(materialCountProxy.getId()) == null){
+			materialCountMapper.insert(materialCountProxy);
+		}
 		return materialCountMapper.increaseByPrimaryKeySelective(record);
 	}
 
