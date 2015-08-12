@@ -184,52 +184,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeEqualTo(Integer value) {
+        public Criteria andSubscribeEqualTo(Byte value) {
             addCriterion("subscribe =", value, "subscribe");
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeNotEqualTo(Integer value) {
+        public Criteria andSubscribeNotEqualTo(Byte value) {
             addCriterion("subscribe <>", value, "subscribe");
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeGreaterThan(Integer value) {
+        public Criteria andSubscribeGreaterThan(Byte value) {
             addCriterion("subscribe >", value, "subscribe");
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andSubscribeGreaterThanOrEqualTo(Byte value) {
             addCriterion("subscribe >=", value, "subscribe");
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeLessThan(Integer value) {
+        public Criteria andSubscribeLessThan(Byte value) {
             addCriterion("subscribe <", value, "subscribe");
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeLessThanOrEqualTo(Integer value) {
+        public Criteria andSubscribeLessThanOrEqualTo(Byte value) {
             addCriterion("subscribe <=", value, "subscribe");
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeIn(List<Integer> values) {
+        public Criteria andSubscribeIn(List<Byte> values) {
             addCriterion("subscribe in", values, "subscribe");
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeNotIn(List<Integer> values) {
+        public Criteria andSubscribeNotIn(List<Byte> values) {
             addCriterion("subscribe not in", values, "subscribe");
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeBetween(Integer value1, Integer value2) {
+        public Criteria andSubscribeBetween(Byte value1, Byte value2) {
             addCriterion("subscribe between", value1, value2, "subscribe");
             return (Criteria) this;
         }
 
-        public Criteria andSubscribeNotBetween(Integer value1, Integer value2) {
+        public Criteria andSubscribeNotBetween(Byte value1, Byte value2) {
             addCriterion("subscribe not between", value1, value2, "subscribe");
             return (Criteria) this;
         }
@@ -314,52 +314,52 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andSexEqualTo(Integer value) {
+        public Criteria andSexEqualTo(Byte value) {
             addCriterion("sex =", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexNotEqualTo(Integer value) {
+        public Criteria andSexNotEqualTo(Byte value) {
             addCriterion("sex <>", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexGreaterThan(Integer value) {
+        public Criteria andSexGreaterThan(Byte value) {
             addCriterion("sex >", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexGreaterThanOrEqualTo(Integer value) {
+        public Criteria andSexGreaterThanOrEqualTo(Byte value) {
             addCriterion("sex >=", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexLessThan(Integer value) {
+        public Criteria andSexLessThan(Byte value) {
             addCriterion("sex <", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexLessThanOrEqualTo(Integer value) {
+        public Criteria andSexLessThanOrEqualTo(Byte value) {
             addCriterion("sex <=", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexIn(List<Integer> values) {
+        public Criteria andSexIn(List<Byte> values) {
             addCriterion("sex in", values, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexNotIn(List<Integer> values) {
+        public Criteria andSexNotIn(List<Byte> values) {
             addCriterion("sex not in", values, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexBetween(Integer value1, Integer value2) {
+        public Criteria andSexBetween(Byte value1, Byte value2) {
             addCriterion("sex between", value1, value2, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexNotBetween(Integer value1, Integer value2) {
+        public Criteria andSexNotBetween(Byte value1, Byte value2) {
             addCriterion("sex not between", value1, value2, "sex");
             return (Criteria) this;
         }

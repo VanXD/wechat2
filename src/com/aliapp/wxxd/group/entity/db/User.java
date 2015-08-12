@@ -3,11 +3,11 @@ package com.aliapp.wxxd.group.entity.db;
 public class User {
     private String openid;
 
-    private Integer subscribe;
+    private Byte subscribe;
 
     private String nickname;
 
-    private Integer sex;
+    private Byte sex;
 
     private String language;
 
@@ -35,11 +35,11 @@ public class User {
         this.openid = openid == null ? null : openid.trim();
     }
 
-    public Integer getSubscribe() {
+    public Byte getSubscribe() {
         return subscribe;
     }
 
-    public void setSubscribe(Integer subscribe) {
+    public void setSubscribe(Byte subscribe) {
         this.subscribe = subscribe;
     }
 
@@ -51,11 +51,11 @@ public class User {
         this.nickname = nickname == null ? null : nickname.trim();
     }
 
-    public Integer getSex() {
+    public Byte getSex() {
         return sex;
     }
 
-    public void setSex(Integer sex) {
+    public void setSex(Byte sex) {
         this.sex = sex;
     }
 
