@@ -1,4 +1,4 @@
-package vanxd;
+package view;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,6 +26,8 @@ import service.chain.AbstractFactoryChain;
 import service.chain.SimpleFactoryChain;
 import service.factory.AbstractFactory;
 import service.factory.VanxdHandlerFactory;
+import service.invoker.DefaultHandlerInvoker;
+import service.invoker.HandlerInvokerAbstract;
 import util.MessageUtil;
 import util.SignUtil;
 
@@ -55,20 +57,17 @@ public class Entry {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter writer = response.getWriter();
-		OutputMessageAbstract oma;
 		InputMessage im = initInputMessage(request);
 
+		// 默认使用简单工厂链
 		AbstractFactoryChain sf = new SimpleFactoryChain();
+		// 获取handler(具体命令)
 		AbstractHandler handler = sf.process(im);
-		if (handler == null) {
-			System.out.println("no handler ");
-			oma = new TextOutputMessage("暂不支持此服务,谢谢.");
-			oma.inject(im);
-		} else {
-			oma = handler.handle(im);
-		}
+		// 执行具体命令，封装一些业务逻辑操作
+		HandlerInvokerAbstract defaultHandlerInvoker = new DefaultHandlerInvoker(
+				handler);
 		// 输出
-		writer.print(MessageUtil.objToXml(oma));
+		writer.print(MessageUtil.objToXml(defaultHandlerInvoker.handle(im)));
 	}
 
 	private InputMessage initInputMessage(HttpServletRequest request)

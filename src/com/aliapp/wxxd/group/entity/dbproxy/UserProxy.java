@@ -4,17 +4,30 @@ import com.aliapp.wxxd.group.entity.db.User;
 
 public class UserProxy extends User {
 	/**
-	 * 移动到的分组id
+	 * 移动到的分组id,setter方法将其赋值到父类的groupId
 	 */
-	private String to_groupid;
+	private Integer to_groupid;
 	private String[] openid_list;
+	/**
+	 * 第一个拉取的OPENID，不填默认从头开始拉取
+	 */
+	private String next_openid;
 
-	public String getTo_groupid() {
+	public String getNext_openid() {
+		return next_openid;
+	}
+
+	public void setNext_openid(String next_openid) {
+		this.next_openid = next_openid;
+	}
+
+	public Integer getTo_groupid() {
 		return to_groupid;
 	}
 
-	public void setTo_groupid(String to_groupid) {
+	public void setTo_groupid(Integer to_groupid) {
 		this.to_groupid = to_groupid;
+		setGroupid(to_groupid);
 	}
 
 	public String[] getOpenid_list() {

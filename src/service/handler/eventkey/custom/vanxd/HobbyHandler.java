@@ -19,11 +19,7 @@ public class HobbyHandler extends AbstractHandler implements
 			oma.inject(im);
 			return oma;
 		}
-		if (nextHandler != null)
-			return nextHandler.handle(im);
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override

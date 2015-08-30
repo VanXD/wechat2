@@ -19,11 +19,7 @@ public class SkillFrontEndHandler extends AbstractHandler implements TextAnswerI
 			oma.inject(im);
 			return oma;
 		}
-		if (nextHandler != null)
-			return nextHandler.handle(im);
-		else {
-			return null;
-		}
+		return null;
 	}
 	
 	@Override

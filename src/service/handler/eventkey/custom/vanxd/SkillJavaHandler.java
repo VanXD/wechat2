@@ -18,11 +18,7 @@ public class SkillJavaHandler extends AbstractHandler implements TextAnswerInter
 			oma.inject(im);
 			return oma;
 		}
-		if (nextHandler != null)
-			return nextHandler.handle(im);
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override

@@ -17,11 +17,7 @@ public class ScanHandler extends AbstractHandler {
 			oma.inject(im);
 			return oma;
 		}
-		if (nextHandler != null)
-			return nextHandler.handle(im);
-		else {
-			return null;
-		}
+		return null;
 	}
 
 }

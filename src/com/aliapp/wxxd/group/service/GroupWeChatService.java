@@ -24,7 +24,7 @@ import com.aliapp.wxxd.material.entity.dbproxy.MaterialCountProxy;
 import com.aliapp.wxxd.material.entity.outputmessage.mass.MsgTypeOutputMessage;
 
 /**
- * 与微信官方用户管理接口交互
+ * 与微信官方分组管理接口交互
  * 
  * @author VanXD
  *
@@ -39,28 +39,49 @@ public class GroupWeChatService extends WeChatServiceAbstract {
 	 * 
 	 * @param name
 	 *            : 名字
-	 * @return GroupsProxy | Result
+	 * @return GroupSummary | Result
 	 */
-	public Object create(GroupsProxy group) {
+	public Object create(GroupsProxy groupProxy) {
 		HttpURLConnection http = HttpTools.initHttp(
 				WechatGroupRequestURL.CREATE + MessageUtil.getAccess_token(),
 				"POST");
-		GroupSummary data = new GroupSummary(group);
+		GroupSummary data = new GroupSummary(groupProxy);
 		// 放入json参数
 		DataOutputStream out = HttpTools.jsonData(http,
 				JSONObject.fromObject(data));
 
-		getResult(out, http, new GroupsProxy());
+		getResult(out, http, new GroupSummary());
 		return resultObject;
+	}
+
+	/**
+	 * <p>
+	 * 删除用户分组
+	 * <p>
+	 * HTTP Method: POST
+	 * 
+	 * @param groupsProxy
+	 * @return Result
+	 */
+	public Result delete(GroupsProxy groupProxy) {
+		HttpURLConnection http = HttpTools.initHttp(
+				WechatGroupRequestURL.DELETE + MessageUtil.getAccess_token(),
+				"POST");
+		GroupSummary data = new GroupSummary(groupProxy);
+		// 放入json参数
+		DataOutputStream out = HttpTools.jsonData(http,
+				JSONObject.fromObject(data));
+		getResult(out, http);
+		return (Result) resultObject;
 	}
 
 	/**
 	 * <p>
 	 * 查询所有分组
 	 * <p>
-	 * HTTP Method: GET
 	 * 
-	 * @return
+	 * 
+	 * @return GroupSummary | Result
 	 */
 	public Object get() {
 		HttpURLConnection http = HttpTools.initHttp(WechatGroupRequestURL.GET
@@ -77,10 +98,10 @@ public class GroupWeChatService extends WeChatServiceAbstract {
 	 * 
 	 * @return GroupsProxy | Result
 	 */
-	public Object getId(UserProxy userProxy) {
+	public Object getUserGroupId(UserProxy userProxy) {
 		HttpURLConnection http = HttpTools.initHttp(
-				WechatGroupRequestURL.GET_ID + MessageUtil.getAccess_token(),
-				"POST");
+				WechatGroupRequestURL.GET_USER_GROUP_ID
+						+ MessageUtil.getAccess_token(), "POST");
 		// 放入json参数
 		DataOutputStream out = HttpTools.jsonData(http,
 				JSONObject.fromObject(userProxy));
@@ -144,26 +165,6 @@ public class GroupWeChatService extends WeChatServiceAbstract {
 		// 放入json参数
 		DataOutputStream out = HttpTools.jsonData(http,
 				JSONObject.fromObject(userProxy));
-		getResult(out, http);
-		return (Result) resultObject;
-	}
-
-	/**
-	 * <p>
-	 * 删除用户分组
-	 * <p>
-	 * HTTP Method: POST
-	 * 
-	 * @param groupsProxy
-	 * @return Result
-	 */
-	public Result delete(GroupsProxy groupsProxy) {
-		HttpURLConnection http = HttpTools.initHttp(
-				WechatGroupRequestURL.DELETE + MessageUtil.getAccess_token(),
-				"POST");
-		// 放入json参数
-		DataOutputStream out = HttpTools.jsonData(http,
-				JSONObject.fromObject(groupsProxy));
 		getResult(out, http);
 		return (Result) resultObject;
 	}

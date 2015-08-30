@@ -12,7 +12,13 @@ import com.aliapp.wxxd.material.entity.Result;
 public class WeChatServiceAbstract {
 	protected String resultString = null;
 	protected Object resultObject = null;
-
+	
+	/**
+	 * 将数据转换至目标对象类型
+	 * @param resultString
+	 * @param t
+	 * @return
+	 */
 	protected <T> T getTargetClass(String resultString, T t) {
 		System.out.println("转换至目标对象：" + t.getClass());
 		System.out.println(resultString);

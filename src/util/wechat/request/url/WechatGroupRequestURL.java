@@ -19,7 +19,7 @@ public class WechatGroupRequestURL {
 	/**
 	 * 查询用户所在分组
 	 */
-	public static final String GET_ID = "https://api.weixin.qq.com/cgi-bin/groups/getid?access_token=";
+	public static final String GET_USER_GROUP_ID = "https://api.weixin.qq.com/cgi-bin/groups/getid?access_token=";
 	
 	/**
 	 * 修改分组名

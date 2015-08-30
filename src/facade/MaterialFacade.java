@@ -24,6 +24,7 @@ import util.ienum.WeChatGlobalResponse;
  * 处于Controller与Material Service层之间的Facade
  * <p>
  * 将后台与微信交互和数据库交互封装在一个系统中，由Facade进行与Controller的交互。
+ * <p>素材管理模块的Facade
  * 
  * @author VanXD
  *

@@ -16,6 +16,8 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.aliapp.wxxd.material.entity.InputMessage;
 import com.aliapp.wxxd.material.entity.Result;
@@ -37,6 +39,8 @@ import com.aliapp.wxxd.material.entity.outputmessage.mass.OpenIDOutputMessage;
 import com.aliapp.wxxd.material.entity.outputmessage.mass.type.ArticleMassOutputMessage;
 import com.aliapp.wxxd.material.entity.outputmessage.mass.type.ImageMassOutputMessage;
 import com.aliapp.wxxd.material.service.MaterialWeChatService;
+import com.aliapp.wxxd.website.user.entity.db.SysUsersExample;
+import com.aliapp.wxxd.website.user.service.SysUsersMapperProxy;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -398,4 +402,13 @@ public class TestMain {
 		return (T) JSONObject.toBean(result, t.getClass());
 	}
 	
+	@Test
+	public void testExample(){
+		ApplicationContext application = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		SysUsersMapperProxy mapper = (SysUsersMapperProxy) application.getBean("sysUsersMapperProxy");
+		SysUsersExample example = new SysUsersExample();
+		SysUsersExample.Criteria c = example.createCriteria();
+		c.andUsernameEqualTo("zhang");
+		System.out.println(mapper.selectByExample(example));
+	}
 }

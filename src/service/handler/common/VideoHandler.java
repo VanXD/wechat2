@@ -18,11 +18,7 @@ public class VideoHandler extends AbstractHandler {
 			oma.inject(im, "1", "2", "3");
 			return oma;
 		}
-		if (nextHandler != null)
-			return nextHandler.handle(im);
-		else {
-			return null;
-		}
+		return null;
 	}
 
 }

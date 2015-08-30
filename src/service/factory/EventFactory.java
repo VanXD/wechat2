@@ -18,7 +18,7 @@ import util.PropertyUtil;
 public class EventFactory extends AbstractFactory {
 
 	/**
-	 * 用im.getEventKey的值来反射要返回哪一个handler
+	 * 用im.getEvent的值来反射要返回哪一个handler
 	 */
 	@Override
 	public AbstractHandler getInstance(InputMessageAbstract im) {
